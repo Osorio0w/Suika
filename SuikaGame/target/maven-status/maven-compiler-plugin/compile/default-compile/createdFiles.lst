@@ -1,4 +1,12 @@
+gameObjects\Background.class
 main\Window.class
-graphics\Assets.class
 graphics\Loader.class
+gameObjects\GameObject.class
+input\KeyBoard.class
+math\Vector2D.class
+gameObjects\Watermelon.class
 com\mycompany\suikagame\SuikaGame.class
+math\Calcs.class
+gameObjects\Apple.class
+graphics\Assets.class
+states\GameState.class

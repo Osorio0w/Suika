@@ -8,7 +8,10 @@
  * @author Andrès Osorio
  */
 package main;
+import gameObjects.Apple;
+import gameObjects.Watermelon;
 import graphics.Assets;
+import input.KeyBoard;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -16,24 +19,27 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import math.Calcs;
+import math.Vector2D;
 
 import javax.swing.JFrame;
+import states.GameState;
 
 public class Window extends JFrame implements Runnable{
 	
-	public static final int WIDTH = 412, HEIGHT = 915;
+	public static final int WIDTH = 1280, HEIGHT = 720;
 	private final Canvas canvas;
 	private Thread thread;
 	private boolean running = false;
-	
 	private BufferStrategy bs;
 	private Graphics g;
-	
 	private final int FPS = 60;
 	private final double TARGETTIME = 1000000000/FPS;
 	private double delta = 0;
 	private int AVERAGEFPS = FPS;
-	
+	private GameState gameState;
+        private KeyBoard keyBoard;
+        
 	public Window()
 	{
 		setTitle("Suika Game");
@@ -42,27 +48,24 @@ public class Window extends JFrame implements Runnable{
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setVisible(true);
-		
 		canvas = new Canvas();
-		
+                keyBoard = new KeyBoard();
 		canvas.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		canvas.setMaximumSize(new Dimension(WIDTH, HEIGHT));
 		canvas.setMinimumSize(new Dimension(WIDTH, HEIGHT));
 		canvas.setFocusable(true);
-		
 		add(canvas);
-		
+		canvas.addKeyListener(keyBoard);
 	}
 
 	public static void main(String[] args) {
 		new Window().start();
 	}
-	
-	
-        int x = 0;
+        
 	private void update(){
-            x += 3;
-	}
+            keyBoard.update();
+            gameState.update();
+        }
 
 	private void draw(){
 		bs = canvas.getBufferStrategy();
@@ -74,12 +77,11 @@ public class Window extends JFrame implements Runnable{
 		}
 		
 		g = bs.getDrawGraphics();
-		
                 g.setColor(Color.BLACK);
                 g.fillRect(0,0,WIDTH,HEIGHT);
-                g.drawImage(Assets.apple, 30, x, null);
+                gameState.draw(g);
+                g.setColor(Color.WHITE);
 		g.drawString(""+AVERAGEFPS, 10, 20);
-                
 		g.dispose();
 		bs.show();
 	}
@@ -87,6 +89,13 @@ public class Window extends JFrame implements Runnable{
         private void init()
         {
             Assets.init();
+            gameState  = new GameState();
+     //       double distance = calculateDistance(Apple.getX(), Apple.getY(),
+      //              Watermelon.getX(), Watermelon.getY());
+      //      while(distance < Apple.getRadio() + Watermelon.getRadio())
+            {  
+                
+            }
         }
         
 	
@@ -102,39 +111,36 @@ public class Window extends JFrame implements Runnable{
                 
 		while(running)
 		{
-			now = System.nanoTime();
-			delta += (now - lastTime)/TARGETTIME;
-			time += (now - lastTime);
-			lastTime = now;
-			
-			
-			
-			if(delta >= 1)
-			{		
-				update();
-				draw();
-				delta --;
-				frames ++;
-			}
-			if(time >= 1000000000)
-			{
-				AVERAGEFPS = frames;
-				frames = 0;
-				time = 0;
-				
-			}
+                    now = System.nanoTime();
+                    delta += (now - lastTime)/TARGETTIME;
+                    time += (now - lastTime);
+                    lastTime = now;
+
+
+                    if(delta >= 1)
+                    {		 
+                            update();
+                            draw();
+                            delta --;
+                            frames ++;
+                    }
+                    if(time >= 1000000000)
+                    {
+                            AVERAGEFPS = frames;
+                            frames = 0;
+                            time = 0;
+                    }
 		}
-		
 		stop();
 	}
 	
-	private void start(){
-		
+	private void start()
+        {	
 		thread = new Thread(this);
 		thread.start();
 		running = true;
-		
 	}
+        
 	private void stop(){
             try {
                 thread.join();
@@ -142,7 +148,5 @@ public class Window extends JFrame implements Runnable{
             } catch (InterruptedException ex) {
                 Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
             }
-	
-	
         }
 }
