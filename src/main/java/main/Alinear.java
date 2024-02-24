@@ -1,26 +1,28 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package main;
 
-/**
- *
- * @author Andrès Osorio
- */
 public class Alinear {
 
-    Alinear(double x, double y) {
+    Alinear(double x, double y) { // Coordenadas x e y del punto
         this.x = x;
         this.y = y;
     }
 
     double x, y;
 
+        /**
+     * Método para obtener la coordenada x del punto.
+     * 
+     * @return La coordenada x del punto.
+     */
     double getX(){
         return this.x;
     }
 
+     /**
+     * Método para obtener la coordenada y del punto.
+     * 
+     * @return La coordenada y del punto.
+     */
     double getY(){
         return this.y;
     }

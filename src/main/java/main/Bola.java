@@ -1,25 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package main;
-import java.util.ArrayList;
-import java.util.Vector;
-/**
- *
- * @author Andrès Osorio
- */
-public class Bola {
 
-    public void setOutOfGame(boolean outOfGame) {
-        this.outOfGame = outOfGame;
-    }
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
-    public void setIntersectWithOtherBall(boolean intersectWithOtherBall) {
-        this.intersectWithOtherBall = intersectWithOtherBall;
-    }
+// Clase que representa una bola en el programa
+public class Bola 
+{
+    
 
-    Bola(double x, double y, double ax, double ay, double r, double m, boolean outOfConstraint, boolean outOfGame, boolean intersectWithOtherBall) {
+    // Constructor de la clase Bola
+    Bola(double x, double y, double ax, double ay, double r, double m, boolean outOfConstraint, boolean outOfGame, boolean intersectWithOtherBall, BufferedImage image) throws IOException 
+    {
+        // Inicialización de los atributos de la bola
         this.x = x;
         this.y = y;
         this.ax = ax;
@@ -34,12 +28,16 @@ public class Bola {
         this.intersectWithOtherBall = intersectWithOtherBall;
     }
 
-    void updatePosition(double dt){
-        if(!outOfGame) {
+    // Método para actualizar la posición de la bola en función del tiempo
+    void updatePosition(double dt)
+    {
+        if(!outOfGame) 
+        {
+             // Calcular la velocidad actual
             Vector2D velocity = position_current.subtract(position_old);
             // Guardar posición actual
             position_old = position_current;
-            // Integración verlet
+             // Integración Verlet para actualizar la posición
             Vector2D deltaAcc = acceleration.multiply(dt).multiply(dt);
             Vector2D deltaPos = velocity.add(deltaAcc);
             position_current = position_current.add(deltaPos);
@@ -48,10 +46,23 @@ public class Bola {
         }
     }
 
-    void accelerate(Vector2D acc){
+    // Método para aplicar una aceleración a la bola
+    void accelerate(Vector2D acc)
+    {
         acceleration = acceleration.add(acc);
     }
-
+    
+    // Métodos para establecer el estado de la bola
+        public void setOutOfGame(boolean outOfGame) 
+    {
+        this.outOfGame = outOfGame;
+    }
+        
+    public void setIntersectWithOtherBall(boolean intersectWithOtherBall) 
+    {
+        this.intersectWithOtherBall = intersectWithOtherBall;
+    }
+    
     double x, y, ax, ay, radius, mass;
     Vector2D position_current;
     Vector2D position_old;

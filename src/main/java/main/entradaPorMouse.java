@@ -6,6 +6,9 @@ package main;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 class entradaPorMouse extends MouseAdapter {
     private Animacion animator;
@@ -18,9 +21,16 @@ class entradaPorMouse extends MouseAdapter {
 
     @Override
     public void mousePressed(MouseEvent e) {
+        //Limito el area en que se puede hacer click pq si no sucede el bug que manda las bolas al otro lado de la caja
+        if(e.getX() > 640 && e.getX() < 1279)
+        {
         System.out.println("Mouse Pressed at: " + e.getX() + ", " + "10");
-        animator.ballFactory.crearFruta(e.getX(), 10, pixelPerMeter);
-
+            try {
+                animator.ballFactory.crearFruta(e.getX(), 10, pixelPerMeter);
+            } catch (IOException ex) {
+                Logger.getLogger(entradaPorMouse.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @Override
