@@ -8,8 +8,6 @@ import javax.imageio.ImageIO;
 // Clase que representa una bola en el programa
 public class Bola 
 {
-    
-
     // Constructor de la clase Bola
     Bola(double x, double y, double ax, double ay, double r, double m, boolean outOfConstraint, boolean outOfGame, boolean intersectWithOtherBall, BufferedImage image) throws IOException 
     {
@@ -18,56 +16,56 @@ public class Bola
         this.y = y;
         this.ax = ax;
         this.ay = ay;
-        this.radius = r;
-        this.mass = m;
-        this.position_current = new Vector2D(x,y);
-        this.position_old = new Vector2D(x,y);
-        this.acceleration = new Vector2D(0,0);
-        this.outOfConstraint = outOfConstraint;
-        this.outOfGame = outOfGame;
-        this.intersectWithOtherBall = intersectWithOtherBall;
+        this.radio = r;
+        this.masa = m;
+        this.posicionActual = new Vector2D(x,y);
+        this.posicionAntigua = new Vector2D(x,y);
+        this.aceleracion = new Vector2D(0,0);
+        this.fuera_de_restricciones = outOfConstraint;
+        this.fuera_del_juego = outOfGame;
+        this.interseccionConOtraBola = intersectWithOtherBall;
     }
 
     // Método para actualizar la posición de la bola en función del tiempo
-    void updatePosition(double dt)
+    void actualizarPosicion(double dt)
     {
-        if(!outOfGame) 
+        if(!fuera_del_juego) 
         {
              // Calcular la velocidad actual
-            Vector2D velocity = position_current.subtract(position_old);
+            Vector2D velocidad = posicionActual.restar(posicionAntigua);
             // Guardar posición actual
-            position_old = position_current;
+            posicionAntigua = posicionActual;
              // Integración Verlet para actualizar la posición
-            Vector2D deltaAcc = acceleration.multiply(dt).multiply(dt);
-            Vector2D deltaPos = velocity.add(deltaAcc);
-            position_current = position_current.add(deltaPos);
+            Vector2D deltaAcc = aceleracion.multiplicar(dt).multiplicar(dt);
+            Vector2D deltaPos = velocidad.sumar(deltaAcc);
+            posicionActual = posicionActual.sumar(deltaPos);
             // Reiniciar aceleración
-            acceleration.set(0, 0);
+            aceleracion.set(0, 0);
         }
     }
 
     // Método para aplicar una aceleración a la bola
-    void accelerate(Vector2D acc)
+    void acelerar(Vector2D acc)
     {
-        acceleration = acceleration.add(acc);
+        aceleracion = aceleracion.sumar(acc);
     }
     
     // Métodos para establecer el estado de la bola
-        public void setOutOfGame(boolean outOfGame) 
+        public void setFuera_del_juego(boolean outOfGame) 
     {
-        this.outOfGame = outOfGame;
+        this.fuera_del_juego = outOfGame;
     }
         
     public void setIntersectWithOtherBall(boolean intersectWithOtherBall) 
     {
-        this.intersectWithOtherBall = intersectWithOtherBall;
+        this.interseccionConOtraBola = intersectWithOtherBall;
     }
     
-    double x, y, ax, ay, radius, mass;
-    Vector2D position_current;
-    Vector2D position_old;
-    Vector2D acceleration;
-    boolean outOfConstraint;
-    boolean outOfGame;
-    boolean intersectWithOtherBall;
+    double x, y, ax, ay, radio, masa;
+    Vector2D posicionActual;
+    Vector2D posicionAntigua;
+    Vector2D aceleracion;
+    boolean fuera_de_restricciones;
+    boolean fuera_del_juego;
+    boolean interseccionConOtraBola;
 }

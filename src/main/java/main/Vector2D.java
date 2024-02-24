@@ -10,25 +10,25 @@ public class Vector2D {
     }
 
     // Método para restar otro vector de este
-    public Vector2D subtract(Vector2D other) {
+    public Vector2D restar(Vector2D other) {
         return new Vector2D(this.x - other.x, this.y - other.y);
     }
 
     // método para agregar otro vector a este
-    public Vector2D add(Vector2D other) {
+    public Vector2D sumar(Vector2D other) {
         return new Vector2D(this.x + other.x, this.y + other.y);
     }
     // Método para multiplicar este vector por un escalar
-    public Vector2D multiply(double scalar) {
-        return new Vector2D(this.x * scalar, this.y * scalar);
+    public Vector2D multiplicar(double escalar) {
+        return new Vector2D(this.x * escalar, this.y * escalar);
     }
 
     // Método para dividir este vector por un escalar
-    public Vector2D divide(double scalar) {
-        if (scalar == 0) {
-            throw new IllegalArgumentException("Cannot divide by zero.");
+    public Vector2D dividir(double escalar) {
+        if (escalar == 0) {
+            throw new IllegalArgumentException("No puedes dividir por cero.");
         }
-        return new Vector2D(this.x / scalar, this.y / scalar);
+        return new Vector2D(this.x / escalar, this.y / escalar);
     }
 
     // Método para establecer la coordenada x

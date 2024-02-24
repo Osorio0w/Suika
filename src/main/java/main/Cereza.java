@@ -10,7 +10,7 @@ public class Cereza extends Bola{
         // Llama al constructor de la superclase Bola
         super(x, y, ax, ay, r, m, outOfConstraint, outOfGame, intersectWithOtherBall, cerezaImage);
         // Establece el radio y la masa específica de la bola 
-        this.radius = 0.3375;
-        this.mass = 4;
+        this.radio = 0.414;
+        this.masa = 4;
     }
 }

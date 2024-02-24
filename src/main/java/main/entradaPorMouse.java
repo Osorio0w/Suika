@@ -24,7 +24,7 @@ class entradaPorMouse extends MouseAdapter {
         //Limito el area en que se puede hacer click pq si no sucede el bug que manda las bolas al otro lado de la caja
         if(e.getX() > 640 && e.getX() < 1279)
         {
-        System.out.println("Mouse Pressed at: " + e.getX() + ", " + "10");
+        System.out.println("Mouse presionado en:" + e.getX() + ", " + "10");
             try {
                 animator.ballFactory.crearFruta(e.getX(), 10, pixelPerMeter);
             } catch (IOException ex) {

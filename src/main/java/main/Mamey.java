@@ -14,7 +14,7 @@ import java.io.IOException;
 public class Mamey extends Bola{
     Mamey(double x, double y, double ax, double ay, double r, double m, boolean outOfConstraint, boolean outOfGame, boolean intersectWithOtherBall, BufferedImage mameyImage) throws IOException {
         super(x, y, ax, ay, r, m, outOfConstraint, outOfGame, intersectWithOtherBall, mameyImage);
-        this.radius = 0.225;
-        this.mass = 3;
+        this.radio = 0.310;
+        this.masa = 3;
     }
 }

@@ -37,7 +37,7 @@ public class Animacion extends JPanel implements ActionListener
         this.deltaT = 1.0 / fps;
         
         // Creación de la lista de bolas
-        this.lista = new Lista(pixelWidth / pixelsPerMeter, pixelHeight / pixelsPerMeter, this);
+        this.lista = new Colisiones(pixelWidth / pixelsPerMeter, pixelHeight / pixelsPerMeter, this);
         
         // Configuración del JPanel
         this.setOpaque(false);
@@ -52,7 +52,7 @@ public class Animacion extends JPanel implements ActionListener
 
     // Factor de conversión de píxeles a metros
     private static final double pixelsPerMeter = 200;
-    private Lista lista;
+    private Colisiones lista;
     final GeneradorFrutas ballFactory;
     private Timer timer;
     private double deltaT;
@@ -79,17 +79,17 @@ public class Animacion extends JPanel implements ActionListener
         g2.fillRect(0, 0, this.getWidth(), this.getHeight());
 
         // Dibujar cada bola en la lista
-        for (Bola b : lista.balls) 
+        for (Bola b : lista.Bolas) 
         {
-            double x = b.position_current.getX() - b.radius;
-            double y = b.position_current.getY() + b.radius;
+            double x = b.posicionActual.getX() - b.radio;
+            double y = b.posicionActual.getY() + b.radio;
 
             // Coordenadas Y invertidas
             Ellipse2D.Double e = new Ellipse2D.Double(
                     x * pixelsPerMeter,
                     this.getHeight() - (y * pixelsPerMeter),
-                    b.radius * 2 * pixelsPerMeter,
-                    b.radius * 2 * pixelsPerMeter);
+                    b.radio * 2 * pixelsPerMeter,
+                    b.radio * 2 * pixelsPerMeter);
                 
             // Asignación de colores según el tipo de bola
             if (b instanceof Datil) 
@@ -119,7 +119,20 @@ public class Animacion extends JPanel implements ActionListener
             {
                 g2.setColor(Color.CYAN);
             }
-            // Código similar para otros tipos de bolas
+            if (b instanceof Mango)
+            {
+                g2.setColor(Color.ORANGE);
+            }
+
+            if (b instanceof Coco)
+            {
+                g2.setColor(Color.LIGHT_GRAY);
+            }
+
+            if (b instanceof Patilla)
+            {
+                g2.setColor(Color.MAGENTA);
+            }
 
             // Rellenar y dibujar la elipse correspondiente
             g2.fill(e);

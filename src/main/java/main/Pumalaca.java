@@ -11,7 +11,7 @@ public class Pumalaca extends Bola{
         // Llama al constructor de la superclase Bola
         super(x, y, ax, ay, r, m, outOfConstraint, outOfGame, intersectWithOtherBall, pumalacaImage);
         // Establece el radio y la masa específica de la bola Pumalaca
-        this.radius = 0.50625;
-        this.mass = 5;
+        this.radio = 0.518;
+        this.masa = 5;
     }
 }
