@@ -15,6 +15,7 @@ public class MenuDeInicio extends javax.swing.JFrame {
      */
     public MenuDeInicio() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -28,47 +29,46 @@ public class MenuDeInicio extends javax.swing.JFrame {
 
         btnjugar = new javax.swing.JButton();
         btnsalir = new javax.swing.JButton();
+        Fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(java.awt.Color.pink);
+        setMaximumSize(new java.awt.Dimension(500, 400));
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnjugar.setBackground(java.awt.Color.green);
         btnjugar.setForeground(java.awt.Color.black);
-        btnjugar.setText("JUGAR");
+        btnjugar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Rolo\\Desktop\\salir.png")); // NOI18N
+        btnjugar.setBorderPainted(false);
+        btnjugar.setContentAreaFilled(false);
+        btnjugar.setFocusPainted(false);
+        btnjugar.setMaximumSize(new java.awt.Dimension(46, 24));
+        btnjugar.setMinimumSize(new java.awt.Dimension(46, 24));
         btnjugar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnjugarActionPerformed(evt);
             }
         });
+        getContentPane().add(btnjugar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, 200, 50));
 
         btnsalir.setBackground(java.awt.Color.red);
         btnsalir.setForeground(java.awt.Color.black);
-        btnsalir.setLabel("SALIR");
+        btnsalir.setIcon(new javax.swing.ImageIcon("C:\\Users\\Rolo\\Desktop\\Jugar.png")); // NOI18N
+        btnsalir.setText("");
+        btnsalir.setBorderPainted(false);
+        btnsalir.setContentAreaFilled(false);
+        btnsalir.setFocusPainted(false);
         btnsalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnsalirActionPerformed(evt);
             }
         });
+        getContentPane().add(btnsalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 260, 200, 46));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(157, 157, 157)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnjugar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(161, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(156, Short.MAX_VALUE)
-                .addComponent(btnjugar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46))
-        );
+        Fondo.setIcon(new javax.swing.ImageIcon("C:\\Users\\Rolo\\Desktop\\menu_inicio2.png")); // NOI18N
+        Fondo.setMaximumSize(new java.awt.Dimension(500, 400));
+        getContentPane().add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -117,6 +117,7 @@ public class MenuDeInicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Fondo;
     private javax.swing.JButton btnjugar;
     private javax.swing.JButton btnsalir;
     // End of variables declaration//GEN-END:variables

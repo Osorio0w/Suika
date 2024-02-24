@@ -1,4 +1,6 @@
 main\declararAssets.class
+main\MenuDeInicio$1.class
+main\MenuDeInicio$3.class
 main\gameObject.class
 main\Colisiones.class
 main\Patilla.class
@@ -11,9 +13,11 @@ main\Alinear.class
 main\entradaPorMouse.class
 main\assetDatil.class
 main\Bola.class
+main\MenuDeInicio$2.class
 main\Animacion$1.class
 main\GeneradorFrutas.class
 main\Vector2D.class
+main\MenuDeInicio.class
 main\Parchita.class
 main\Coco.class
 main\Siguiente.class
