@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 public class Bola 
 {
     // Constructor de la clase Bola
-    Bola(double x, double y, double ax, double ay, double r, double m, boolean outOfConstraint, boolean outOfGame, boolean intersectWithOtherBall, BufferedImage image) throws IOException 
+    Bola(double x, double y, double ax, double ay, double r, double m, boolean outOfConstraint, boolean outOfGame, boolean intersectWithOtherBall) throws IOException 
     {
         // Inicialización de los atributos de la bola
         this.x = x;

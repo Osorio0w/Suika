@@ -5,41 +5,45 @@ import java.util.*;
 
 public class Colisiones 
 {
-
     Animacion animator; // Referencia al objeto Animacion
     double anchoDelArea, alturaDelArea; // Dimensiones del área de juego
     Vector2D gravedad = new Vector2D(0,-9.82); // Gravedad aplicada a las bolas
+    public boolean gameOver = false;
 
-    ArrayList<Bola> Bolas = new ArrayList<Bola>(); // Lista de bolas en el área de juego
-
-        /**
-     * Constructor de la clase Lista.
-     * @param ancho Ancho del área de juego.
-     * @param alto Alto del área de juego.
-     * @param anim Referencia al objeto Animacion.
-     */
+    public boolean isGameOver()
+    {
+        return gameOver;
+    }
     
+    public void setGameOver(boolean gameOver)
+    {
+        this.gameOver = gameOver;
+    }
+    
+    ArrayList<Bola> Bolas = new ArrayList<Bola>(); // Lista de bolas en el área de juego
+        /**
+        * Constructor de la clase Lista.
+        * @param ancho Ancho del área de juego.
+        * @param alto Alto del área de juego.
+        * @param anim Referencia al objeto Animacion.
+        **/
     Colisiones(double ancho, double alto, Animacion anim) 
     {
         anchoDelArea = ancho;
         alturaDelArea = alto;
         animator = anim;
     }
-
     void step(double deltaT) throws IOException 
     {
-
         int subSteps = 32;
         double subDetlaT = deltaT / subSteps;
         for (int i = subSteps; i > 0; --i){
-
             aplicarGravedad();
             applyConstraint();
             detectarColisiones();
             actualizarPosicion(subDetlaT);
         }
     }
-
     /**
      * Método que realiza un paso de la simulación del juego.
      * @param deltaT Intervalo de tiempo.
@@ -57,8 +61,8 @@ public class Colisiones
                     if(i != j) {
                         if(!Bolas.get(i).fuera_del_juego && !Bolas.get(j).fuera_del_juego ) 
                         {
-                             // Detectar colisión entre las bolas i y j
-                            // Resolver colisión según las características de las bolas
+                              // Detectar colisión entre las bolas i y j
+                             // Resolver colisión según las características de las bolas
                             double colisionEjeX = Bolas.get(i).posicionActual.getX() - Bolas.get(j).posicionActual.getX();
                             double colisionEjeY = Bolas.get(i).posicionActual.getY() - Bolas.get(j).posicionActual.getY();
                             Vector2D vectorColision = new Vector2D(colisionEjeX, colisionEjeY);
@@ -88,7 +92,6 @@ public class Colisiones
                                                 Bolas.get(i).posicionActual = Bolas.get(i).posicionActual.sumar(n.multiplicar(0.55 * superposicion));
                                                 Bolas.get(j).posicionActual = Bolas.get(j).posicionActual.restar(n.multiplicar(0.45 * superposicion));
                                             }
-
                                         }
                                         if (Math.abs(Bolas.get(i).masa - Bolas.get(j).masa) == 2) 
                                         {
@@ -101,7 +104,6 @@ public class Colisiones
                                                 Bolas.get(i).posicionActual = Bolas.get(i).posicionActual.sumar(n.multiplicar(0.65 * superposicion));
                                                 Bolas.get(j).posicionActual = Bolas.get(j).posicionActual.restar(n.multiplicar(0.35 * superposicion));
                                             }
-
                                         }
                                         if (Math.abs(Bolas.get(i).masa - Bolas.get(j).masa) == 3) 
                                         {
@@ -153,7 +155,42 @@ public class Colisiones
                                                 Bolas.get(i).posicionActual = Bolas.get(i).posicionActual.sumar(n.multiplicar(1 * superposicion));
                                                 Bolas.get(j).posicionActual = Bolas.get(j).posicionActual.restar(n.multiplicar(0 * superposicion));
                                             }
-
+                                        }
+                                        if (Math.abs(Bolas.get(i).masa - Bolas.get(j).masa) == 7) 
+                                        {
+                                            if (Bolas.get(i).masa > Bolas.get(j).masa) 
+                                            {
+                                                Bolas.get(i).posicionActual = Bolas.get(i).posicionActual.sumar(n.multiplicar(0 * superposicion));
+                                                Bolas.get(j).posicionActual = Bolas.get(j).posicionActual.restar(n.multiplicar(1 * superposicion));
+                                            } else 
+                                            {
+                                                Bolas.get(i).posicionActual = Bolas.get(i).posicionActual.sumar(n.multiplicar(1 * superposicion));
+                                                Bolas.get(j).posicionActual = Bolas.get(j).posicionActual.restar(n.multiplicar(0 * superposicion));
+                                            }
+                                        }
+                                        if (Math.abs(Bolas.get(i).masa - Bolas.get(j).masa) == 8) 
+                                        {
+                                            if (Bolas.get(i).masa > Bolas.get(j).masa) 
+                                            {
+                                                Bolas.get(i).posicionActual = Bolas.get(i).posicionActual.sumar(n.multiplicar(0 * superposicion));
+                                                Bolas.get(j).posicionActual = Bolas.get(j).posicionActual.restar(n.multiplicar(1 * superposicion));
+                                            } else 
+                                            {
+                                                Bolas.get(i).posicionActual = Bolas.get(i).posicionActual.sumar(n.multiplicar(1 * superposicion));
+                                                Bolas.get(j).posicionActual = Bolas.get(j).posicionActual.restar(n.multiplicar(0 * superposicion));
+                                            }
+                                        }
+                                        if (Math.abs(Bolas.get(i).masa - Bolas.get(j).masa) == 9) 
+                                        {
+                                            if (Bolas.get(i).masa > Bolas.get(j).masa) 
+                                            {
+                                                Bolas.get(i).posicionActual = Bolas.get(i).posicionActual.sumar(n.multiplicar(0 * superposicion));
+                                                Bolas.get(j).posicionActual = Bolas.get(j).posicionActual.restar(n.multiplicar(1 * superposicion));
+                                            } else 
+                                            {
+                                                Bolas.get(i).posicionActual = Bolas.get(i).posicionActual.sumar(n.multiplicar(1 * superposicion));
+                                                Bolas.get(j).posicionActual = Bolas.get(j).posicionActual.restar(n.multiplicar(0 * superposicion));
+                                            }
                                         }
                                     }
                                     
@@ -243,6 +280,48 @@ public class Colisiones
                                             Bolas.get(i).posicionAntigua = Bolas.get(i).posicionActual;
                                             Bolas.get(j).posicionAntigua = Bolas.get(j).posicionActual;
                                         }
+                                        if(Math.abs(Bolas.get(i).masa - Bolas.get(j).masa) == 7) 
+                                        {
+                                            if(Bolas.get(i).masa > Bolas.get(j).masa)
+                                            {
+                                                Bolas.get(i).posicionActual = Bolas.get(i).posicionActual.sumar(n.multiplicar(0 * superposicion * 0.01));
+                                                Bolas.get(j).posicionActual = Bolas.get(j).posicionActual.restar(n.multiplicar(1 * superposicion * 0.01));
+                                                Bolas.get(i).posicionAntigua = Bolas.get(i).posicionActual;
+                                                Bolas.get(j).posicionAntigua = Bolas.get(j).posicionActual;
+                                            }
+                                            Bolas.get(i).posicionActual = Bolas.get(i).posicionActual.sumar(n.multiplicar(1 * superposicion * 0.01));
+                                            Bolas.get(j).posicionActual = Bolas.get(j).posicionActual.restar(n.multiplicar(0 * superposicion * 0.01));
+                                            Bolas.get(i).posicionAntigua = Bolas.get(i).posicionActual;
+                                            Bolas.get(j).posicionAntigua = Bolas.get(j).posicionActual;
+                                        }
+                                        if(Math.abs(Bolas.get(i).masa - Bolas.get(j).masa) == 8) 
+                                        {
+                                            if(Bolas.get(i).masa > Bolas.get(j).masa)
+                                            {
+                                                Bolas.get(i).posicionActual = Bolas.get(i).posicionActual.sumar(n.multiplicar(0 * superposicion * 0.01));
+                                                Bolas.get(j).posicionActual = Bolas.get(j).posicionActual.restar(n.multiplicar(1 * superposicion * 0.01));
+                                                Bolas.get(i).posicionAntigua = Bolas.get(i).posicionActual;
+                                                Bolas.get(j).posicionAntigua = Bolas.get(j).posicionActual;
+                                            }
+                                            Bolas.get(i).posicionActual = Bolas.get(i).posicionActual.sumar(n.multiplicar(1 * superposicion * 0.01));
+                                            Bolas.get(j).posicionActual = Bolas.get(j).posicionActual.restar(n.multiplicar(0 * superposicion * 0.01));
+                                            Bolas.get(i).posicionAntigua = Bolas.get(i).posicionActual;
+                                            Bolas.get(j).posicionAntigua = Bolas.get(j).posicionActual;
+                                        }
+                                        if(Math.abs(Bolas.get(i).masa - Bolas.get(j).masa) == 9) 
+                                        {
+                                            if(Bolas.get(i).masa > Bolas.get(j).masa)
+                                            {
+                                                Bolas.get(i).posicionActual = Bolas.get(i).posicionActual.sumar(n.multiplicar(0 * superposicion * 0.01));
+                                                Bolas.get(j).posicionActual = Bolas.get(j).posicionActual.restar(n.multiplicar(1 * superposicion * 0.01));
+                                                Bolas.get(i).posicionAntigua = Bolas.get(i).posicionActual;
+                                                Bolas.get(j).posicionAntigua = Bolas.get(j).posicionActual;
+                                            }
+                                            Bolas.get(i).posicionActual = Bolas.get(i).posicionActual.sumar(n.multiplicar(1 * superposicion * 0.01));
+                                            Bolas.get(j).posicionActual = Bolas.get(j).posicionActual.restar(n.multiplicar(0 * superposicion * 0.01));
+                                            Bolas.get(i).posicionAntigua = Bolas.get(i).posicionActual;
+                                            Bolas.get(j).posicionAntigua = Bolas.get(j).posicionActual;
+                                        }
                                     }
                                 }
                             }
@@ -252,16 +331,17 @@ public class Colisiones
             }
         }
     }
-
         /**
-     * Método para fusionar dos bolas después de una colisión.
-     * @param bola1 Primera bola.
-     * @param bola2 Segunda bola.
-     * @throws IOException Excepción de E/S.
-     */
+        * Método para fusionar dos bolas después de una colisión.
+        * @param bola1 Primera bola.
+        * @param bola2 Segunda bola.
+        * @throws IOException Excepción de E/S.
+        **/
      // Lógica para fusionar dos bolas después de una colisión
     private void fusionar(Bola bola1, Bola bola2) throws IOException 
     {
+        double CantidadBolasFusionadas = 2;
+        double puntosPorFusiion = 20;
 
         Vector2D posicionColision = new Vector2D(bola1.posicionActual.getX() - bola2.posicionActual.getX(), bola1.posicionActual.getY() - bola2.posicionActual.getY());
         double distanciaColision = Math.sqrt(Math.pow(bola1.posicionActual.getX() - bola2.posicionActual.getX(), 2) + Math.pow(bola1.posicionActual.getY() - bola2.posicionActual.getY(), 2));
@@ -375,15 +455,19 @@ public class Colisiones
         bola2.posicionActual.set(99999.9,99999.9);
         bola2.posicionAntigua.set(99999.9,99999.9);
     }
-
-    
     // Aplicar restricciones de movimiento a las bolas dentro del área de juego
     private void applyConstraint() 
     {
         double maxX = 1320.0/200;
         double minX = 600.0/200;
         double minY = 30.0/200;
-        for (Bola b : Bolas){
+        double maxY = 800.0/200;
+        for (Bola b : Bolas)
+        {
+            if(b.posicionActual.getY() > maxY + b.radio)
+            {
+                setGameOver(true);
+            }
             double toMinYY = b.posicionActual.getY() - minY;
             double toMinYX = 0;
             Vector2D toMinY = new Vector2D(toMinYX,toMinYY);
@@ -419,7 +503,7 @@ public class Colisiones
                 double correctionScalar = b.radio - distMinY;
                 Vector2D correction = n.multiplicar(correctionScalar);
                 
-                //if(correctionScalar > 0.0000000002){
+                // if(correctionScalar > 0.0000000002){
                 //    b.position_current = b.position_current.add(correction);
                 //    b.position_old = b.position_current;
                 //}
@@ -428,11 +512,10 @@ public class Colisiones
             }
         }
     }
-
        /**
-     * Método para actualizar la posición de las bolas en función del tiempo.
-     * @param deltaT Intervalo de tiempo.
-     */
+         * Método para actualizar la posición de las bolas en función del tiempo.
+         * @param deltaT Intervalo de tiempo.
+         **/
     private void actualizarPosicion(double deltaT) 
     {
         for (Bola b : Bolas)
@@ -440,8 +523,6 @@ public class Colisiones
             b.actualizarPosicion(deltaT);
         }
     }
-
-    
     /**
      * Método para aplicar la gravedad a las bolas.
      */
@@ -449,7 +530,6 @@ public class Colisiones
     {
         for (Bola b : Bolas)
         {
-            
             //if(!b.outOfConstraint)
             
             b.acelerar(gravedad);

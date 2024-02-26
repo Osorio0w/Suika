@@ -12,28 +12,41 @@ import java.awt.geom.Path2D;
 import javax.swing.JFrame;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.Objects;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 // Clase principal que extiende JPanel e implementa ActionListener
 public class Animacion extends JPanel implements ActionListener 
 {
+
+    declararAssets assets;
     // Variables de coordenadas del cursor
     public static int cursorX;
     private static int cursorY;
 
     // Clase para controlar el siguiente elemento
-    private final Siguiente siguiente;
+    private Siguiente siguiente = null;
     
-    // Variable para almacenar la información del datil
-    private assetDatil datil;
+    //Contador de Clicks
+    private int clickCounter;
+    private Colisiones colisiones;
     
+    // GameOver
+    //private boolean gameOver = false;
+        public Animacion(Colisiones colisiones )
+    {
+        this.colisiones = colisiones;
+    }
+        
+        
     // Constructor de la clase
     public Animacion(int pixelWidth, int pixelHeight, int fps) 
     {
         super(true);
         // Configuración del temporizador para la animación
-        this.timer = new Timer(100 / fps, this);
+        this.timer = new Timer(1000 / fps, this);
         this.deltaT = 1.0 / fps;
         
         // Creación de la lista de bolas
@@ -44,16 +57,17 @@ public class Animacion extends JPanel implements ActionListener
         this.setPreferredSize(new Dimension(pixelWidth, pixelHeight));
         
         // Inicialización de la clase Siguiente
-        this.siguiente = new Siguiente();
+        siguiente = new Siguiente();
         
         // Inicialización del GeneradorFrutas
-        this.ballFactory = new GeneradorFrutas(lista, siguiente);
+        ballFactory = new GeneradorFrutas(lista, siguiente);
+        assets.init();
     }
 
     // Factor de conversión de píxeles a metros
     private static final double pixelsPerMeter = 200;
     private Colisiones lista;
-    final GeneradorFrutas ballFactory;
+    GeneradorFrutas ballFactory = null;
     private Timer timer;
     private double deltaT;
 
@@ -69,6 +83,14 @@ public class Animacion extends JPanel implements ActionListener
         timer.stop();
     }
 
+    public int getClickCounter()
+    {
+        return clickCounter;
+    }
+    public void setClickCounter(int clickCounter)
+    {
+        this.clickCounter = clickCounter;
+    }
     // Método para dibujar las bolas en el panel
     @Override
     protected void paintComponent(Graphics g) 
@@ -92,6 +114,11 @@ public class Animacion extends JPanel implements ActionListener
                     b.radio * 2 * pixelsPerMeter);
                 
             // Asignación de colores según el tipo de bola
+           // if (colisiones.isGameOver())
+           // {
+           //     abrirVentanaGameOver();
+           //     System.out.println(colisiones.isGameOver() +"<----Game Over");
+           // }
             if (b instanceof Datil) 
             {
                  g2.setColor(Color.blue);
@@ -139,7 +166,7 @@ public class Animacion extends JPanel implements ActionListener
         }
 
         // Dibujar vista previa de la bola
-        drawPreviewBall(g2);
+        drawBolaSiguiente(g2);
 
         // Dibujar contorno de un "jar"
         g2.setColor(Color.black);
@@ -151,14 +178,73 @@ public class Animacion extends JPanel implements ActionListener
 
         g2.draw(jar);
         Toolkit.getDefaultToolkit().sync();
+        g.setColor(Color.BLACK);
+        g.drawString("Turnos: " + clickCounter, 20, 20);
     }
 
-    // Método para dibujar la vista previa de la próxima bola
-    private void drawPreviewBall(Graphics2D g2) 
+    private void abrirVentanaGameOver()
     {
-        // Código para dibujar la vista previa de diferentes tipos de bolas
-         // if(Objects.equals(ballFactory.siguiente.getValue(), "Datil"))
+        JFrame ventanaGameOver = new JFrame("Game Over!");
+        JLabel etiquetaGameOver = new JLabel("¡Game Over! Tu puntaje final es:");
+        ventanaGameOver.add(etiquetaGameOver);
+        ventanaGameOver.pack();
+        ventanaGameOver.setVisible(true);
     }
+    
+    private int calcularPuntajeFinal()
+    {
+        return 1000; //Falta poner el método para calcular el puntaje
+    }
+    
+    // Método para dibujar la vista previa de la próxima bola
+    private void drawBolaSiguiente(Graphics2D g2) 
+    {
+        double minX = 620;
+        double maxX = 1240;
+        double y = 10;
+        
+        if (cursorX >= minX && cursorX <= maxX)
+        { 
+            switch (ballFactory.siguiente.getValue())
+        {
+            case "Datil":
+                if(cursorX > 620 && cursorX < 1300)
+                {
+                    Ellipse2D.Double datil = new Ellipse2D.Double( cursorX - (0.103 * 2 * (pixelsPerMeter/2)) , y , 0.103 * 2 * pixelsPerMeter ,0.103 * 2 * pixelsPerMeter);
+                    g2.setColor(Color.BLUE);
+                    g2.fill(datil);
+                }
+            break;
+            
+            case "Mamon":
+                if(cursorX > 640 && cursorX < 1280)
+                {
+                    Ellipse2D.Double mamon = new Ellipse2D.Double( cursorX - (0.207 * 2 * (pixelsPerMeter/2)) , y , 0.207 * 2 * pixelsPerMeter ,0.207 * 2 * pixelsPerMeter);
+                    g2.setColor(Color.RED);
+                    g2.fill(mamon);
+                    break;
+                }
+            
+            case "Mamey":
+                if(cursorX > 660 && cursorX < 1260)
+                {
+                    Ellipse2D.Double mamey = new Ellipse2D.Double( cursorX - (0.310 * 2 * (pixelsPerMeter/2)) , y , 0.310 * 2 * pixelsPerMeter ,0.310 * 2 * pixelsPerMeter);
+                    g2.setColor(Color.black);
+                    g2.fill(mamey);
+                }
+            break;
+            
+            case "Cereza":
+                if(cursorX > 680 && cursorX < 1240)
+                {
+                    Ellipse2D.Double cereza = new Ellipse2D.Double( cursorX - (0.414 * 2 * (pixelsPerMeter/2)) , y , 0.414 * 2 * pixelsPerMeter ,0.414 * 2 * pixelsPerMeter);
+                    g2.setColor(Color.yellow);
+                    g2.fill(cereza);
+                    break;
+                }
+        }    
+    } 
+        }
 
     // Método que se llama en cada paso de la animación
     @Override
@@ -168,16 +254,15 @@ public class Animacion extends JPanel implements ActionListener
         {
             lista.step(deltaT);
         } catch (IOException ex) {
-            ex.printStackTrace();
         }
         this.repaint();
     }
-
     // Método principal
     public static void main(String[] args) 
     {
         javax.swing.SwingUtilities.invokeLater(new Runnable() 
         {
+            @Override
             public void run() {
                 // Creación de la animación
                 Animacion anim = new Animacion(1440, 900, 120);
