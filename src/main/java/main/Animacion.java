@@ -12,7 +12,6 @@ import java.awt.geom.Path2D;
 import javax.swing.JFrame;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.Objects;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -20,8 +19,6 @@ import javax.swing.Timer;
 // Clase principal que extiende JPanel e implementa ActionListener
 public class Animacion extends JPanel implements ActionListener 
 {
-
-    declararAssets assets;
     // Variables de coordenadas del cursor
     public static int cursorX;
     private static int cursorY;
@@ -31,14 +28,6 @@ public class Animacion extends JPanel implements ActionListener
     
     //Contador de Clicks
     private int clickCounter;
-    private Colisiones colisiones;
-    
-    // GameOver
-    //private boolean gameOver = false;
-        public Animacion(Colisiones colisiones )
-    {
-        this.colisiones = colisiones;
-    }
         
         
     // Constructor de la clase
@@ -61,7 +50,6 @@ public class Animacion extends JPanel implements ActionListener
         
         // Inicialización del GeneradorFrutas
         ballFactory = new GeneradorFrutas(lista, siguiente);
-        assets.init();
     }
 
     // Factor de conversión de píxeles a metros
@@ -165,9 +153,6 @@ public class Animacion extends JPanel implements ActionListener
             g2.fill(e);
         }
 
-        // Dibujar vista previa de la bola
-        drawBolaSiguiente(g2);
-
         // Dibujar contorno de un "jar"
         g2.setColor(Color.black);
         Path2D jar = new Path2D.Double();
@@ -197,54 +182,6 @@ public class Animacion extends JPanel implements ActionListener
     }
     
     // Método para dibujar la vista previa de la próxima bola
-    private void drawBolaSiguiente(Graphics2D g2) 
-    {
-        double minX = 620;
-        double maxX = 1240;
-        double y = 10;
-        
-        if (cursorX >= minX && cursorX <= maxX)
-        { 
-            switch (ballFactory.siguiente.getValue())
-        {
-            case "Datil":
-                if(cursorX > 620 && cursorX < 1300)
-                {
-                    Ellipse2D.Double datil = new Ellipse2D.Double( cursorX - (0.103 * 2 * (pixelsPerMeter/2)) , y , 0.103 * 2 * pixelsPerMeter ,0.103 * 2 * pixelsPerMeter);
-                    g2.setColor(Color.BLUE);
-                    g2.fill(datil);
-                }
-            break;
-            
-            case "Mamon":
-                if(cursorX > 640 && cursorX < 1280)
-                {
-                    Ellipse2D.Double mamon = new Ellipse2D.Double( cursorX - (0.207 * 2 * (pixelsPerMeter/2)) , y , 0.207 * 2 * pixelsPerMeter ,0.207 * 2 * pixelsPerMeter);
-                    g2.setColor(Color.RED);
-                    g2.fill(mamon);
-                    break;
-                }
-            
-            case "Mamey":
-                if(cursorX > 660 && cursorX < 1260)
-                {
-                    Ellipse2D.Double mamey = new Ellipse2D.Double( cursorX - (0.310 * 2 * (pixelsPerMeter/2)) , y , 0.310 * 2 * pixelsPerMeter ,0.310 * 2 * pixelsPerMeter);
-                    g2.setColor(Color.black);
-                    g2.fill(mamey);
-                }
-            break;
-            
-            case "Cereza":
-                if(cursorX > 680 && cursorX < 1240)
-                {
-                    Ellipse2D.Double cereza = new Ellipse2D.Double( cursorX - (0.414 * 2 * (pixelsPerMeter/2)) , y , 0.414 * 2 * pixelsPerMeter ,0.414 * 2 * pixelsPerMeter);
-                    g2.setColor(Color.yellow);
-                    g2.fill(cereza);
-                    break;
-                }
-        }    
-    } 
-        }
 
     // Método que se llama en cada paso de la animación
     @Override

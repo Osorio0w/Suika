@@ -1,24 +1,12 @@
 package main;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
-import static main.declararAssets.cerezaImage;
-import static main.declararAssets.cocoImage;
-import static main.declararAssets.datilImage;
-import static main.declararAssets.kiwiImage;
-import static main.declararAssets.mameyImage;
-import static main.declararAssets.mamonImage;
-import static main.declararAssets.mangoImage;
-import static main.declararAssets.parchitaImage;
-import static main.declararAssets.patillaImage;
-import static main.declararAssets.pumalacaImage;
 
 // Clase encargada de generar frutas en el juego
-public class GeneradorFrutas extends declararAssets
+public class GeneradorFrutas
 {
-    declararAssets assets;
     Colisiones model;       // Añade una lista
     double  alturaDelArea;  // Altura del juego
     double areaWidth;       // Ancho del juego
@@ -87,13 +75,6 @@ public class GeneradorFrutas extends declararAssets
         System.out.println("Se crea una patilla");
         model.Bolas.add(new Patilla(x, y, 0, 0, 0.1, 1, false, false, false));
     }
-
-    // Método para agregar la bola a la cola
-    private void agregarBolaACola(String bola) 
-    {
-        colaBolas.add(bola);
-    }
-    
     
     // Método para crear una fruta en una posición específica, con conversión de coordenadas
     void crearFruta(double x, double y, double pixelsPerMeter) throws IOException
@@ -101,8 +82,6 @@ public class GeneradorFrutas extends declararAssets
         System.out.println("Se crea una fruta");
         // Convertir coordenadas de píxeles a coordenadas del modelo
         double xModel = (x / pixelsPerMeter);
-        
-        assets.init();
         
         System.out.println(xModel + " wasa");
         double yModel = (alturaDelArea - (y / pixelsPerMeter) - 0.3);

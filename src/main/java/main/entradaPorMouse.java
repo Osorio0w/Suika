@@ -44,7 +44,6 @@ class entradaPorMouse extends MouseAdapter {
                     Logger.getLogger(entradaPorMouse.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 animator.setClickCounter(animator.getClickCounter() + 1);
-                animator.repaint();
             }
         }
     }
