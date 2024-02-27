@@ -8,6 +8,17 @@ public class Colisiones
     Animacion animator; // Referencia al objeto Animacion
     double anchoDelArea, alturaDelArea; // Dimensiones del área de juego
     Vector2D gravedad = new Vector2D(0,-9.82); // Gravedad aplicada a las bolas
+    public boolean gameOver = false;
+
+    public boolean isGameOver()
+    {
+        return gameOver;
+    }
+    
+    public void setGameOver(boolean gameOver)
+    {
+        this.gameOver = gameOver;
+    }
     
     ArrayList<Bola> Bolas = new ArrayList<Bola>(); // Lista de bolas en el área de juego
         /**
@@ -329,6 +340,8 @@ public class Colisiones
      // Lógica para fusionar dos bolas después de una colisión
     private void fusionar(Bola bola1, Bola bola2) throws IOException 
     {
+        double CantidadBolasFusionadas = 2;
+        double puntosPorFusiion = 20;
 
         Vector2D posicionColision = new Vector2D(bola1.posicionActual.getX() - bola2.posicionActual.getX(), bola1.posicionActual.getY() - bola2.posicionActual.getY());
         double distanciaColision = Math.sqrt(Math.pow(bola1.posicionActual.getX() - bola2.posicionActual.getX(), 2) + Math.pow(bola1.posicionActual.getY() - bola2.posicionActual.getY(), 2));
@@ -448,8 +461,13 @@ public class Colisiones
         double maxX = 1320.0/200;
         double minX = 600.0/200;
         double minY = 30.0/200;
+        double maxY = 800.0/200;
         for (Bola b : Bolas)
         {
+            if(b.posicionActual.getY() > maxY + b.radio)
+            {
+                setGameOver(true);
+            }
             double toMinYY = b.posicionActual.getY() - minY;
             double toMinYX = 0;
             Vector2D toMinY = new Vector2D(toMinYX,toMinYY);

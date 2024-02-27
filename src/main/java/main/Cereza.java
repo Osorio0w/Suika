@@ -6,9 +6,9 @@ import java.io.IOException;
 // Clase que representa una bola específica
 public class Cereza extends Bola{
     // Constructor de la clase
-    Cereza(double x, double y, double ax, double ay, double r, double m, boolean outOfConstraint, boolean outOfGame, boolean intersectWithOtherBall) throws IOException {
+    Cereza(double x, double y, double ax, double ay, double r, double m, boolean outOfConstraint, boolean outOfGame, boolean intersectWithOtherBall, BufferedImage cerezaImage) throws IOException {
         // Llama al constructor de la superclase Bola
-        super(x, y, ax, ay, r, m, outOfConstraint, outOfGame, intersectWithOtherBall);
+        super(x, y, ax, ay, r, m, outOfConstraint, outOfGame, intersectWithOtherBall, cerezaImage);
         // Establece el radio y la masa específica de la bola 
         this.radio = 0.414;
         this.masa = 4;
