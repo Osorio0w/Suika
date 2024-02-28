@@ -3,6 +3,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Random;
 
 // Clase encargada de generar frutas en el juego
 public class GeneradorFrutas
@@ -22,8 +23,15 @@ public class GeneradorFrutas
         this.areaWidth = model.anchoDelArea; 
         this.siguiente = bolaSiguiente;
         cola = new Cola();
-        
+        inicializarCola(); //Inicializa la cola con los tipos de fruta
     }
+    
+    private void inicializarCola()
+    {
+        colaBolas.add("Kiwi");
+        colaBolas.add("Cereza");
+    }
+    
     // Métodos para crear diferentes tipos de frutas con las coordenadas del mouse
     void crearDatil(BufferedImage img, double x, double y) throws IOException
     {
@@ -80,44 +88,51 @@ public class GeneradorFrutas
     void crearFruta(double x, double y, double pixelsPerMeter) throws IOException
     {
         System.out.println("Se crea una fruta");
+        
         // Convertir coordenadas de píxeles a coordenadas del modelo
         double xModel = (x / pixelsPerMeter);
-        
         System.out.println(xModel + "<--- xModel");
+        
         double yModel = (alturaDelArea - (y / pixelsPerMeter) - 0.3);
-        contador++;
+        
+        // Verifica si la colaBolas tiene menos de 2 elementos
+        while (colaBolas.size() < 2) 
+        {
+            Random rand = new Random();
+            int numeroAleatorio = rand.nextInt(5) + 1; // Genera un número aleatorio entre 1 y 5
+
+            // Asocia cada número con un tipo de fruta y agrega las frutas correspondientes a la cola
+            switch (numeroAleatorio) 
+            {
+                case 1 -> colaBolas.add("Datil");
+                case 2 -> colaBolas.add("Mamon");
+                case 3 -> colaBolas.add("Mamey");
+                case 4 -> colaBolas.add("Cereza");
+                case 5 -> colaBolas.add("Kiwi");
+            }
+        }
+            
+            String tipoFruta = colaBolas.poll();
         // Determinar el tipo de fruta a crear basado en el contador
-            System.out.println(contador + "<--- contador");
-            if((contador % 7) == 0)
+            switch(tipoFruta)
             {
-                model.Bolas.add(new Mamon(xModel, yModel, 0, 0, 0.1, 1, false, false, false));
-                siguiente.setValue("Mamon");
-            }
-            if((contador % 7) == 1)
-            {
-                model.Bolas.add(new Kiwi(xModel, yModel, 0, 0, 0.1, 1,false, false, false));
-                siguiente.setValue("Datil");
-            }
-            if((contador % 7) == 2)
-            {
-                model.Bolas.add(new Kiwi(xModel, yModel, 0, 0, 0.1, 1,false, false, false));
-                siguiente.setValue("Mamey");
-            }
-            if((contador % 7) == 3)
-            {
-                model.Bolas.add(new Kiwi(xModel, yModel, 0, 0, 0.1, 1,false, false, false));
-                siguiente.setValue("Mamey");
-            }
-            if((contador % 7) == 4)
-            {
-                model.Bolas.add(new Cereza(xModel, yModel, 0, 0, 0.1, 1,false, false, false));
-                siguiente.setValue("Cereza");
-            }
-            if((contador % 7) == 5)
-            {
-                model.Bolas.add(new Datil(xModel, yModel, 0, 0, 0.1, 1,false, false, false));
-                siguiente.setValue("Datil");
-            }
-            System.out.println(siguiente.getValue() + "<--- siguiente");
+                case "Datil" -> 
+                    model.Bolas.add(new Datil(xModel, yModel, 0, 0, 0.1, 1,false, false, false));
+                    
+                case "Mamon" -> 
+                    model.Bolas.add(new Mamon(xModel, yModel, 0, 0, 0.1, 1,false, false, false));
+                    
+                case "Mamey" -> 
+                    model.Bolas.add(new Mamey(xModel, yModel, 0, 0, 0.1, 1,false, false, false));
+            
+                case "Cereza" -> 
+                    model.Bolas.add(new Cereza(xModel, yModel, 0, 0, 0.1, 1,false, false, false));
+                    
+                case "Kiwi" -> 
+                    model.Bolas.add(new Kiwi(xModel, yModel, 0, 0, 0.1, 1, false, false, false));
+            
+            } 
+            System.out.println(tipoFruta + "<--- Bola siguiente");
+            System.out.println(colaBolas.toString() + "<--- Cola");
     }
 }

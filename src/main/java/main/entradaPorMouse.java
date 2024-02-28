@@ -12,7 +12,6 @@ class entradaPorMouse extends MouseAdapter {
     private long cooldown = 500; // Tiempo de enfriamiento en milisegundos (0.2 segundos)
     private int clickCounter; // Contador de clics
     private Colisiones lista;
-    Cola cola; 
 
     public entradaPorMouse(Animacion animator, double pixelPerMeter) {
         this.animator = animator;
@@ -38,17 +37,13 @@ class entradaPorMouse extends MouseAdapter {
             if(e.getX() > 600 && e.getX() < 1400)
             {
                 System.out.println("Mouse presionado en:" + e.getX() + ", " + "10");
-                //switch(cola.verTope())
-                //{
-                //    case "Datil":
-                        try 
-                        {
-                            animator.ballFactory.crearFruta(e.getX(), 10, pixelPerMeter);
-                        } catch (IOException ex) 
-                        {
-                            Logger.getLogger(entradaPorMouse.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                //}
+                try 
+                {
+                    animator.ballFactory.crearFruta(e.getX(), 10, pixelPerMeter);
+                } catch (IOException ex) 
+                {
+                    Logger.getLogger(entradaPorMouse.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 animator.setClickCounter(animator.getClickCounter() + 1);
             }
         }
