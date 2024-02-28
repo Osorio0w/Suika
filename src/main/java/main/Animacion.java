@@ -1,8 +1,10 @@
 // Importación de paquetes y clases necesarias
 package main;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
@@ -16,12 +18,11 @@ import java.util.Objects;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import main.declararAssets;
 
 // Clase principal que extiende JPanel e implementa ActionListener
 public class Animacion extends JPanel implements ActionListener 
 {
-
-    declararAssets assets;
     // Variables de coordenadas del cursor
     public static int cursorX;
     private static int cursorY;
@@ -29,21 +30,12 @@ public class Animacion extends JPanel implements ActionListener
     // Clase para controlar el siguiente elemento
     private Siguiente siguiente = null;
     
-    // Variable para almacenar la información del datil
-    private assetDatil datil;
+    //Fuente para el contador de click y puntaje
+    Font Arial24 = new Font("Arial",Font.BOLD, 24);
     
     //Contador de Clicks
     private int clickCounter;
-    private Colisiones colisiones;
     
-    // GameOver
-    //private boolean gameOver = false;
-        public Animacion(Colisiones colisiones )
-    {
-        this.colisiones = colisiones;
-    }
-        
-        
     // Constructor de la clase
     public Animacion(int pixelWidth, int pixelHeight, int fps) 
     {
@@ -64,9 +56,12 @@ public class Animacion extends JPanel implements ActionListener
         
         // Inicialización del GeneradorFrutas
         ballFactory = new GeneradorFrutas(lista, siguiente);
-        assets.init();
+        
+        
+        //Cargar assets
+        declararAssets.init();
     }
-
+    
     // Factor de conversión de píxeles a metros
     private static final double pixelsPerMeter = 200;
     private Colisiones lista;
@@ -94,14 +89,16 @@ public class Animacion extends JPanel implements ActionListener
     {
         this.clickCounter = clickCounter;
     }
+    
+    
     // Método para dibujar las bolas en el panel
     @Override
     protected void paintComponent(Graphics g) 
     {
         // Dibujar fondo 
+        super.paintComponents(g);
         Graphics2D g2 = (Graphics2D) g;
-        g2.setColor(Color.WHITE);
-        g2.fillRect(0, 0, this.getWidth(), this.getHeight());
+        g2.drawImage(declararAssets.fondo,0,0,this);
 
         // Dibujar cada bola en la lista
         for (Bola b : lista.Bolas) 
@@ -117,138 +114,106 @@ public class Animacion extends JPanel implements ActionListener
                     b.radio * 2 * pixelsPerMeter);
                 
             // Asignación de colores según el tipo de bola
-           // if (colisiones.isGameOver())
-           // {
-           //     abrirVentanaGameOver();
-           //     System.out.println(colisiones.isGameOver() +"<----Game Over");
-           // }
+
             if (b instanceof Datil) 
             {
-                 g2.setColor(Color.blue);
+                int xPos = (int) (b.posicionActual.getX() * pixelsPerMeter) - declararAssets.datil.getWidth()/2;
+                int yPos = this.getHeight() - (int) (b.posicionActual.getY() * pixelsPerMeter) - declararAssets.datil.getHeight()/2;
+                g.drawImage(declararAssets.datil, xPos, yPos, this);
             }   
             if (b instanceof Mamon)
-            {
-                g2.setColor(Color.RED);
+            {   
+                int xPos = (int) (b.posicionActual.getX() * pixelsPerMeter) - declararAssets.mamon.getWidth()/2;
+                int yPos = this.getHeight() - (int) (b.posicionActual.getY() * pixelsPerMeter) - declararAssets.mamon.getHeight()/2;
+                g.drawImage(declararAssets.mamon, xPos, yPos, this);
             }   
             if (b instanceof Mamey)
             {
-                g2.setColor(Color.BLACK);
+                int xPos = (int) (b.posicionActual.getX() * pixelsPerMeter) - declararAssets.mamey.getWidth()/2;
+                int yPos = this.getHeight() - (int) (b.posicionActual.getY() * pixelsPerMeter) - declararAssets.mamey.getHeight()/2;
+                g.drawImage(declararAssets.mamey, xPos, yPos, this);
             }   
             if (b instanceof Cereza)
             {
-                g2.setColor(Color.YELLOW);
+                int xPos = (int) (b.posicionActual.getX() * pixelsPerMeter) - declararAssets.cereza.getWidth()/2;
+                int yPos = this.getHeight() - (int) (b.posicionActual.getY() * pixelsPerMeter) - declararAssets.cereza.getHeight()/2;
+                g.drawImage(declararAssets.cereza, xPos, yPos, this);
             }   
             if (b instanceof Pumalaca)
             {
-                g2.setColor(Color.GREEN);
+                int xPos = (int) (b.posicionActual.getX() * pixelsPerMeter) - declararAssets.pumalaca.getWidth()/2;
+                int yPos = this.getHeight() - (int) (b.posicionActual.getY() * pixelsPerMeter) - declararAssets.pumalaca.getHeight()/2;
+                g.drawImage(declararAssets.pumalaca, xPos, yPos, this);
             }
             if (b instanceof Kiwi){
-                g2.setColor(Color.pink);
+                int xPos = (int) (b.posicionActual.getX() * pixelsPerMeter) - declararAssets.kiwi.getWidth()/2;
+                int yPos = this.getHeight() - (int) (b.posicionActual.getY() * pixelsPerMeter) - declararAssets.kiwi.getHeight()/2;
+                g.drawImage(declararAssets.kiwi, xPos, yPos, this);
             }
             if (b instanceof Parchita)
             {
-                g2.setColor(Color.CYAN);
+                int xPos = (int) (b.posicionActual.getX() * pixelsPerMeter) - declararAssets.parchita.getWidth()/2;
+                int yPos = this.getHeight() - (int) (b.posicionActual.getY() * pixelsPerMeter) - declararAssets.parchita.getHeight()/2;
+                g.drawImage(declararAssets.parchita, xPos, yPos, this);
             }
             if (b instanceof Mango)
             {
-                g2.setColor(Color.ORANGE);
+                int xPos = (int) (b.posicionActual.getX() * pixelsPerMeter) - declararAssets.mango.getWidth()/2;
+                int yPos = this.getHeight() - (int) (b.posicionActual.getY() * pixelsPerMeter) - declararAssets.mango.getHeight()/2;
+                g.drawImage(declararAssets.mango, xPos, yPos, this);
             }
 
             if (b instanceof Coco)
             {
-                g2.setColor(Color.LIGHT_GRAY);
+                int xPos = (int) (b.posicionActual.getX() * pixelsPerMeter) - declararAssets.coco.getWidth()/2;
+                int yPos = this.getHeight() - (int) (b.posicionActual.getY() * pixelsPerMeter) - declararAssets.coco.getHeight()/2;
+                g.drawImage(declararAssets.coco, xPos, yPos, this);
             }
 
             if (b instanceof Patilla)
             {
-                g2.setColor(Color.MAGENTA);
+                int xPos = (int) (b.posicionActual.getX() * pixelsPerMeter) - declararAssets.patilla.getWidth()/2;
+                int yPos = this.getHeight() - (int) (b.posicionActual.getY() * pixelsPerMeter) - declararAssets.patilla.getHeight()/2;
+                g.drawImage(declararAssets.patilla, xPos, yPos, this);
             }
 
             // Rellenar y dibujar la elipse correspondiente
-            g2.fill(e);
+
         }
 
-        // Dibujar vista previa de la bola
-        drawBolaSiguiente(g2);
-
-        // Dibujar contorno de un "jar"
+        // Dibujar la cajita donde caen las frutas
         g2.setColor(Color.black);
+        BasicStroke grosorLinea = new BasicStroke(5);
+        g2.setStroke(grosorLinea);
         Path2D jar = new Path2D.Double();
-        jar.moveTo(600,10);
-        jar.lineTo(600,870);
-        jar.lineTo(1320,870);
-        jar.lineTo(1320,10);
+        
+            //Parte izquierda
+            jar.moveTo(600,10);
+            jar.lineTo(600,870);
+            
+            //Parte derecha
+            jar.lineTo(1320,870);
+            jar.lineTo(1320,10);
+            
 
         g2.draw(jar);
         Toolkit.getDefaultToolkit().sync();
+        //Mostrar el contador de turnos y el puntaje del jugador
+        g.setFont(Arial24);
         g.setColor(Color.BLACK);
-        g.drawString("Turnos: " + clickCounter, 20, 20);
-    }
-
-    private void abrirVentanaGameOver()
-    {
-        JFrame ventanaGameOver = new JFrame("Game Over!");
-        JLabel etiquetaGameOver = new JLabel("¡Game Over! Tu puntaje final es:");
-        ventanaGameOver.add(etiquetaGameOver);
-        ventanaGameOver.pack();
-        ventanaGameOver.setVisible(true);
-    }
-    
-    private int calcularPuntajeFinal()
-    {
-        return 1000; //Falta poner el método para calcular el puntaje
+        g.drawString("Turnos: " + clickCounter, 60, 40);
+        g.drawString("Puntaje:" + lista.obtenerPuntaje(), 60, 120);
     }
     
     // Método para dibujar la vista previa de la próxima bola
-    private void drawBolaSiguiente(Graphics2D g2) 
-    {
-        double minX = 620;
-        double maxX = 1240;
-        double y = 10;
-        
-        if (cursorX >= minX && cursorX <= maxX)
-        { 
-            switch (ballFactory.siguiente.getValue())
+    
+        /*if ( Objects.equals( balFactory.siguiente.getValue(), "Datil" ) )
         {
-            case "Datil":
-                if(cursorX > 620 && cursorX < 1300)
-                {
-                    Ellipse2D.Double datil = new Ellipse2D.Double( cursorX - (0.103 * 2 * (pixelsPerMeter/2)) , y , 0.103 * 2 * pixelsPerMeter ,0.103 * 2 * pixelsPerMeter);
-                    g2.setColor(Color.BLUE);
-                    g2.fill(datil);
-                }
-            break;
             
-            case "Mamon":
-                if(cursorX > 640 && cursorX < 1280)
-                {
-                    Ellipse2D.Double mamon = new Ellipse2D.Double( cursorX - (0.207 * 2 * (pixelsPerMeter/2)) , y , 0.207 * 2 * pixelsPerMeter ,0.207 * 2 * pixelsPerMeter);
-                    g2.setColor(Color.RED);
-                    g2.fill(mamon);
-                    break;
-                }
+        return null;
             
-            case "Mamey":
-                if(cursorX > 660 && cursorX < 1260)
-                {
-                    Ellipse2D.Double mamey = new Ellipse2D.Double( cursorX - (0.310 * 2 * (pixelsPerMeter/2)) , y , 0.310 * 2 * pixelsPerMeter ,0.310 * 2 * pixelsPerMeter);
-                    g2.setColor(Color.black);
-                    g2.fill(mamey);
-                }
-            break;
-            
-            case "Cereza":
-                if(cursorX > 680 && cursorX < 1240)
-                {
-                    Ellipse2D.Double cereza = new Ellipse2D.Double( cursorX - (0.414 * 2 * (pixelsPerMeter/2)) , y , 0.414 * 2 * pixelsPerMeter ,0.414 * 2 * pixelsPerMeter);
-                    g2.setColor(Color.yellow);
-                    g2.fill(cereza);
-                    break;
-                }
-        }    
-    } 
-        }
-
+        } */
+    
     // Método que se llama en cada paso de la animación
     @Override
     public void actionPerformed(ActionEvent e) 
@@ -260,17 +225,17 @@ public class Animacion extends JPanel implements ActionListener
         }
         this.repaint();
     }
-    // Método principal
+    // Método para crear la ventana
     public static void main(String[] args) 
     {
         javax.swing.SwingUtilities.invokeLater(new Runnable() 
         {
             @Override
-            public void run() {
+            public void run() 
+            {
                 // Creación de la animación
                 Animacion anim = new Animacion(1440, 900, 120);
-                
-                // Configuración de los listeners de ratón
+                // Configuración de los listeners del mouse
                 anim.addMouseListener(new entradaPorMouse(anim, pixelsPerMeter));
                 anim.addMouseMotionListener(new MouseMotionAdapter() 
                 {

@@ -1,14 +1,12 @@
 package main;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
 
 // Clase encargada de generar frutas en el juego
-public class GeneradorFrutas extends declararAssets
+public class GeneradorFrutas
 {
-    declararAssets assets;
     Colisiones model;       // Añade una lista
     double  alturaDelArea;  // Altura del juego
     double areaWidth;       // Ancho del juego
@@ -30,60 +28,53 @@ public class GeneradorFrutas extends declararAssets
     void crearDatil(BufferedImage img, double x, double y) throws IOException
     {
         System.out.println("Se crea un dátil");
-        model.Bolas.add(new Datil(x, y, 0, 0, 0.1, 1, false, false, false, img));
+        model.Bolas.add(new Datil(x, y, 0, 0, 0.1, 1, false, false, false));
     }
     void crearMamon(double x, double y) throws IOException
     {
         System.out.println("Se crea un mamón");
-        model.Bolas.add(new Mamon(x, y, 0, 0, 0.1, 1, false, false, false, mamonImage));// (No sé si es un error)
+        model.Bolas.add(new Mamon(x, y, 0, 0, 0.1, 1, false, false, false));// (No sé si es un error)
     }
     void crearMamey(double x, double y) throws IOException
     {
         System.out.println("Se crea un mamey"); 
-        model.Bolas.add(new Mamey(x, y, 0, 0, 0.1, 1, false, false, false, mameyImage));
+        model.Bolas.add(new Mamey(x, y, 0, 0, 0.1, 1, false, false, false));
     }
     void crearCereza(double x, double y) throws IOException
     {
         System.out.println("Se crea una cereza");
-        model.Bolas.add(new Cereza(x, y, 0, 0, 0.1, 1, false, false, false, cerezaImage));
+        model.Bolas.add(new Cereza(x, y, 0, 0, 0.1, 1, false, false, false));
     }
     void crearPumalaca(double x, double y) throws IOException
     {
         System.out.println("Se crea una pumalaca");
-        model.Bolas.add(new Pumalaca(x, y, 0, 0, 0.1, 1, false, false, false, pumalacaImage));
+        model.Bolas.add(new Pumalaca(x, y, 0, 0, 0.1, 1, false, false, false));
     }
     void crearKiwi(double x, double y) throws IOException
     {
         System.out.println("Se crea un kiwi");
-        model.Bolas.add(new Kiwi(x, y, 0, 0, 0.1, 1, false, false, false, kiwiImage));
+        model.Bolas.add(new Kiwi(x, y, 0, 0, 0.1, 1, false, false, false));
     }
     void crearParchita(double x, double y) throws IOException
     {
         System.out.println("Se crea una parchita");
-        model.Bolas.add(new Parchita(x, y, 0, 0, 0.1, 1, false, false, false, parchitaImage));
+        model.Bolas.add(new Parchita(x, y, 0, 0, 0.1, 1, false, false, false));
     }
     void crearMango(double x, double y) throws IOException
     {
         System.out.println("Se crea un mango");
-        model.Bolas.add(new Mango(x, y, 0, 0, 0.1, 1, false, false, false, mangoImage));
+        model.Bolas.add(new Mango(x, y, 0, 0, 0.1, 1, false, false, false));
     }
     void crearCoco(double x, double y) throws IOException
     {
         System.out.println("Se crea un coco");
-        model.Bolas.add(new Coco(x, y, 0, 0, 0.1, 1, false, false, false, cocoImage));
+        model.Bolas.add(new Coco(x, y, 0, 0, 0.1, 1, false, false, false));
     }
     void crearPatilla(double x, double y) throws IOException
     {
         System.out.println("Se crea una patilla");
-        model.Bolas.add(new Patilla(x, y, 0, 0, 0.1, 1, false, false, false, patillaImage));
+        model.Bolas.add(new Patilla(x, y, 0, 0, 0.1, 1, false, false, false));
     }
-
-    // Método para agregar la bola a la cola
-    private void agregarBolaACola(String bola) 
-    {
-        colaBolas.add(bola);
-    }
-    
     
     // Método para crear una fruta en una posición específica, con conversión de coordenadas
     void crearFruta(double x, double y, double pixelsPerMeter) throws IOException
@@ -92,41 +83,39 @@ public class GeneradorFrutas extends declararAssets
         // Convertir coordenadas de píxeles a coordenadas del modelo
         double xModel = (x / pixelsPerMeter);
         
-        assets.init();
-        
-        System.out.println(xModel + " wasa");
+        System.out.println(xModel + "<--- xModel");
         double yModel = (alturaDelArea - (y / pixelsPerMeter) - 0.3);
         contador++;
         // Determinar el tipo de fruta a crear basado en el contador
             System.out.println(contador + "<--- contador");
             if((contador % 7) == 0)
             {
-                model.Bolas.add(new Mamon(xModel, yModel, 0, 0, 0.1, 1, false, false, false, mamonImage));
+                model.Bolas.add(new Mamon(xModel, yModel, 0, 0, 0.1, 1, false, false, false));
                 siguiente.setValue("Mamon");
             }
             if((contador % 7) == 1)
             {
-                model.Bolas.add(new Datil(xModel, yModel, 0, 0, 0.1, 1,false, false, false, datilImage));
+                model.Bolas.add(new Kiwi(xModel, yModel, 0, 0, 0.1, 1,false, false, false));
                 siguiente.setValue("Datil");
             }
             if((contador % 7) == 2)
             {
-                model.Bolas.add(new Mamey(xModel, yModel, 0, 0, 0.1, 1,false, false, false, mameyImage));
+                model.Bolas.add(new Kiwi(xModel, yModel, 0, 0, 0.1, 1,false, false, false));
                 siguiente.setValue("Mamey");
             }
             if((contador % 7) == 3)
             {
-                model.Bolas.add(new Mamey(xModel, yModel, 0, 0, 0.1, 1,false, false, false, mameyImage));
+                model.Bolas.add(new Kiwi(xModel, yModel, 0, 0, 0.1, 1,false, false, false));
                 siguiente.setValue("Mamey");
             }
             if((contador % 7) == 4)
             {
-                model.Bolas.add(new Cereza(xModel, yModel, 0, 0, 0.1, 1,false, false, false, cerezaImage));
+                model.Bolas.add(new Cereza(xModel, yModel, 0, 0, 0.1, 1,false, false, false));
                 siguiente.setValue("Cereza");
             }
             if((contador % 7) == 5)
             {
-                model.Bolas.add(new Datil(xModel, yModel, 0, 0, 0.1, 1,false, false, false, datilImage));
+                model.Bolas.add(new Datil(xModel, yModel, 0, 0, 0.1, 1,false, false, false));
                 siguiente.setValue("Datil");
             }
             System.out.println(siguiente.getValue() + "<--- siguiente");

@@ -7,18 +7,14 @@ public class Colisiones
 {
     Animacion animator; // Referencia al objeto Animacion
     double anchoDelArea, alturaDelArea; // Dimensiones del área de juego
-    Vector2D gravedad = new Vector2D(0,-9.82); // Gravedad aplicada a las bolas
-    public boolean gameOver = false;
-
-    public boolean isGameOver()
+    Vector2D gravedad = new Vector2D(0,-10); // Gravedad aplicada a las bolas
+    private int contadorPuntaje;
+    
+    public int obtenerPuntaje()
     {
-        return gameOver;
+        return contadorPuntaje;
     }
     
-    public void setGameOver(boolean gameOver)
-    {
-        this.gameOver = gameOver;
-    }
     
     ArrayList<Bola> Bolas = new ArrayList<Bola>(); // Lista de bolas en el área de juego
         /**
@@ -36,12 +32,12 @@ public class Colisiones
     void step(double deltaT) throws IOException 
     {
         int subSteps = 32;
-        double subDetlaT = deltaT / subSteps;
+        double subDeltaT = deltaT / subSteps;
         for (int i = subSteps; i > 0; --i){
             aplicarGravedad();
-            applyConstraint();
+            aplicarRestriccion();
             detectarColisiones();
-            actualizarPosicion(subDetlaT);
+            actualizarPosicion(subDeltaT);
         }
     }
     /**
@@ -59,7 +55,7 @@ public class Colisiones
                 for (int j = 0; j < numeroDeObjetos; j++) 
                 {
                     if(i != j) {
-                        if(!Bolas.get(i).fuera_del_juego && !Bolas.get(j).fuera_del_juego ) 
+                        if( !(Bolas.get(i).fuera_del_juego && Bolas.get(j).fuera_del_juego) ) 
                         {
                               // Detectar colisión entre las bolas i y j
                              // Resolver colisión según las características de las bolas
@@ -68,7 +64,7 @@ public class Colisiones
                             Vector2D vectorColision = new Vector2D(colisionEjeX, colisionEjeY);
                             double dist = Math.sqrt( Math.pow(colisionEjeX, 2) + Math.pow(colisionEjeY, 2)); //Calcula distancia euclidiana (la distancia entre dos puntos, pero decir euclidiana suena pro)
                             double minDist = Bolas.get(i).radio + Bolas.get(j).radio;
-                            //Se detecta una colisión cuando la distancia que separa a las bolas es menor que la suma de sus radios
+                            //Se detecta una colisión cuando la distancia que separa a las bolas es menor que la suma de sus radios (distancia mínima)
                             if (dist < minDist) 
                             {
                                 if (Bolas.get(i).radio == Bolas.get(j).radio) 
@@ -340,8 +336,6 @@ public class Colisiones
      // Lógica para fusionar dos bolas después de una colisión
     private void fusionar(Bola bola1, Bola bola2) throws IOException 
     {
-        double CantidadBolasFusionadas = 2;
-        double puntosPorFusiion = 20;
 
         Vector2D posicionColision = new Vector2D(bola1.posicionActual.getX() - bola2.posicionActual.getX(), bola1.posicionActual.getY() - bola2.posicionActual.getY());
         double distanciaColision = Math.sqrt(Math.pow(bola1.posicionActual.getX() - bola2.posicionActual.getX(), 2) + Math.pow(bola1.posicionActual.getY() - bola2.posicionActual.getY(), 2));
@@ -356,10 +350,14 @@ public class Colisiones
             if(corregirPuntoDeColision.getX() > 4.8)
             {
                 animator.ballFactory.crearMamon(corregirPuntoDeColision.getX() - bola2.radio * 0.5, corregirPuntoDeColision.getY() + bola2.radio * 0.5);
+                contadorPuntaje += 20;
+                System.out.println(contadorPuntaje + "<--- Puntaje");
             }
             else 
             {
                 animator.ballFactory.crearMamon(corregirPuntoDeColision.getX() + bola2.radio * 0.5, corregirPuntoDeColision.getY() + bola2.radio * 0.5);
+                contadorPuntaje += 20;
+                System.out.println(contadorPuntaje + "<--- Puntaje");
             }
         }
 
@@ -368,9 +366,13 @@ public class Colisiones
             if(corregirPuntoDeColision.getX() > 4.8)
             {
                 animator.ballFactory.crearMamey(corregirPuntoDeColision.getX() - bola2.radio * 0.5, corregirPuntoDeColision.getY() + bola2.radio * 0.5);
+                contadorPuntaje += 40;
+                System.out.println(contadorPuntaje + "<--- Puntaje");
             }
             else {
                 animator.ballFactory.crearMamey(corregirPuntoDeColision.getX() + bola2.radio * 0.5, corregirPuntoDeColision.getY() + bola2.radio * 0.5);
+                contadorPuntaje += 40;
+                System.out.println(contadorPuntaje + "<--- Puntaje");
             }
         }
 
@@ -378,9 +380,13 @@ public class Colisiones
         {
             if(corregirPuntoDeColision.getX() > 4.8){
                 animator.ballFactory.crearCereza(corregirPuntoDeColision.getX() - bola2.radio * 0.5, corregirPuntoDeColision.getY() + bola2.radio * 0.5);
+                contadorPuntaje += 60;
+                System.out.println(contadorPuntaje + "<--- Puntaje");
             }
             else {
                 animator.ballFactory.crearCereza(corregirPuntoDeColision.getX() + bola2.radio * 0.5, corregirPuntoDeColision.getY() + bola2.radio * 0.5);
+                contadorPuntaje += 60;
+                System.out.println(contadorPuntaje + "<--- Puntaje");
             }
         }
 
@@ -389,10 +395,14 @@ public class Colisiones
             if(corregirPuntoDeColision.getX() > 4.8)
             {
                 animator.ballFactory.crearPumalaca(corregirPuntoDeColision.getX() - bola2.radio * 0.5, corregirPuntoDeColision.getY() + bola2.radio * 0.5);
+                contadorPuntaje += 80;
+                System.out.println(contadorPuntaje + "<--- Puntaje");
             }
             else 
             {
                 animator.ballFactory.crearPumalaca(corregirPuntoDeColision.getX() + bola2.radio * 0.5, corregirPuntoDeColision.getY() + bola2.radio * 0.5);
+                contadorPuntaje += 80;
+                System.out.println(contadorPuntaje + "<--- Puntaje");
             }
         }
 
@@ -401,9 +411,13 @@ public class Colisiones
             if(corregirPuntoDeColision.getX() > 4.8)
             {
                 animator.ballFactory.crearKiwi(corregirPuntoDeColision.getX() - bola2.radio * 0.5, corregirPuntoDeColision.getY() + bola2.radio * 0.5);
+                contadorPuntaje += 100;
+                System.out.println(contadorPuntaje + "<--- Puntaje");
             }
             else {
                 animator.ballFactory.crearKiwi(corregirPuntoDeColision.getX() + bola2.radio * 0.5, corregirPuntoDeColision.getY() + bola2.radio * 0.5);
+                contadorPuntaje += 100;
+                System.out.println(contadorPuntaje + "<--- Puntaje");
             }
         }
 
@@ -412,9 +426,13 @@ public class Colisiones
             if(corregirPuntoDeColision.getX() > 4.8)
             {
                 animator.ballFactory.crearParchita(corregirPuntoDeColision.getX() - bola2.radio * 0.5, corregirPuntoDeColision.getY() + bola2.radio * 0.5);
+                contadorPuntaje += 120;
+                System.out.println(contadorPuntaje + "<--- Puntaje");
             }
             else {
                 animator.ballFactory.crearParchita(corregirPuntoDeColision.getX() + bola2.radio * 0.5, corregirPuntoDeColision.getY() + bola2.radio * 0.5);
+                contadorPuntaje += 120;
+                System.out.println(contadorPuntaje + "<--- Puntaje");
             }
         }
         if (bola1 instanceof Parchita)
@@ -422,9 +440,13 @@ public class Colisiones
             if(corregirPuntoDeColision.getX() > 4.8)
             {
                 animator.ballFactory.crearMango(corregirPuntoDeColision.getX() - bola2.radio * 0.5, corregirPuntoDeColision.getY() + bola2.radio * 0.5);
+                contadorPuntaje += 140;
+                System.out.println(contadorPuntaje + "<--- Puntaje");
             }
             else {
                 animator.ballFactory.crearMango(corregirPuntoDeColision.getX() + bola2.radio * 0.5, corregirPuntoDeColision.getY() + bola2.radio * 0.5);
+                contadorPuntaje += 140;
+                System.out.println(contadorPuntaje + "<--- Puntaje");
             }
         }
         if (bola1 instanceof Mango)
@@ -432,9 +454,13 @@ public class Colisiones
             if(corregirPuntoDeColision.getX() > 4.8)
             {
                 animator.ballFactory.crearCoco(corregirPuntoDeColision.getX() - bola2.radio * 0.5, corregirPuntoDeColision.getY() + bola2.radio * 0.5);
+                contadorPuntaje += 160;
+                System.out.println(contadorPuntaje + "<--- Puntaje");
             }
             else {
                 animator.ballFactory.crearCoco(corregirPuntoDeColision.getX() + bola2.radio * 0.5, corregirPuntoDeColision.getY() + bola2.radio * 0.5);
+                contadorPuntaje += 160;
+                System.out.println(contadorPuntaje + "<--- Puntaje");
             }
         }
         if (bola1 instanceof Coco)
@@ -442,9 +468,13 @@ public class Colisiones
             if(corregirPuntoDeColision.getX() > 4.8)
             {
                 animator.ballFactory.crearPatilla(corregirPuntoDeColision.getX() - bola2.radio * 0.5, corregirPuntoDeColision.getY() + bola2.radio * 0.5);
+                contadorPuntaje += 180;
+                System.out.println(contadorPuntaje + "<--- Puntaje");
             }
             else {
                 animator.ballFactory.crearPatilla(corregirPuntoDeColision.getX() + bola2.radio * 0.5, corregirPuntoDeColision.getY() + bola2.radio * 0.5);
+                contadorPuntaje += 180;
+                System.out.println(contadorPuntaje + "<--- Puntaje");
             }
         }
 
@@ -456,18 +486,13 @@ public class Colisiones
         bola2.posicionAntigua.set(99999.9,99999.9);
     }
     // Aplicar restricciones de movimiento a las bolas dentro del área de juego
-    private void applyConstraint() 
+    private void aplicarRestriccion() 
     {
         double maxX = 1320.0/200;
         double minX = 600.0/200;
         double minY = 30.0/200;
-        double maxY = 800.0/200;
         for (Bola b : Bolas)
         {
-            if(b.posicionActual.getY() > maxY + b.radio)
-            {
-                setGameOver(true);
-            }
             double toMinYY = b.posicionActual.getY() - minY;
             double toMinYX = 0;
             Vector2D toMinY = new Vector2D(toMinYX,toMinYY);
@@ -503,10 +528,10 @@ public class Colisiones
                 double correctionScalar = b.radio - distMinY;
                 Vector2D correction = n.multiplicar(correctionScalar);
                 
-                // if(correctionScalar > 0.0000000002){
-                //    b.position_current = b.position_current.add(correction);
-                //    b.position_old = b.position_current;
-                //}
+               //if(correctionScalar > 0.0000000002){
+               //    b.posicionActual = b.posicionActual.sumar(correction);
+               //   b.posicionAntigua = b.posicionActual;
+               // }
                 
                 b.posicionActual = b.posicionActual.sumar(correction);
             }

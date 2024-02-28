@@ -11,6 +11,8 @@ class entradaPorMouse extends MouseAdapter {
     private long lastClickTime; // Variable para almacenar el tiempo del último clic
     private long cooldown = 500; // Tiempo de enfriamiento en milisegundos (0.2 segundos)
     private int clickCounter; // Contador de clics
+    private Colisiones lista;
+    Cola cola; 
 
     public entradaPorMouse(Animacion animator, double pixelPerMeter) {
         this.animator = animator;
@@ -36,15 +38,18 @@ class entradaPorMouse extends MouseAdapter {
             if(e.getX() > 600 && e.getX() < 1400)
             {
                 System.out.println("Mouse presionado en:" + e.getX() + ", " + "10");
-                try 
-                {
-                    animator.ballFactory.crearFruta(e.getX(), 10, pixelPerMeter);
-                } catch (IOException ex) 
-                {
-                    Logger.getLogger(entradaPorMouse.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                //switch(cola.verTope())
+                //{
+                //    case "Datil":
+                        try 
+                        {
+                            animator.ballFactory.crearFruta(e.getX(), 10, pixelPerMeter);
+                        } catch (IOException ex) 
+                        {
+                            Logger.getLogger(entradaPorMouse.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                //}
                 animator.setClickCounter(animator.getClickCounter() + 1);
-                animator.repaint();
             }
         }
     }
@@ -54,6 +59,4 @@ class entradaPorMouse extends MouseAdapter {
     {
         System.out.println("Mouse liberado en: " + e.getX() + ", " + e.getY());
     }
-
-    // Método para obtener el número actual de clics
 }
