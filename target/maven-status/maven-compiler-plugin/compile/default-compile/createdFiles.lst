@@ -1,5 +1,6 @@
 main\declararAssets.class
 main\Inicio.class
+main\GameOver$3.class
 main\Colisiones.class
 main\Patilla.class
 main\Datil.class
@@ -13,9 +14,11 @@ main\entradaPorMouse.class
 main\Inicio$1.class
 main\Bola.class
 main\GameOver$2.class
+main\Inicio$4.class
 main\Animacion$1.class
 main\GeneradorFrutas.class
 main\Vector2D.class
+main\GameOver$4.class
 main\Parchita.class
 main\Coco.class
 main\Siguiente.class
