@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 // Clase que representa una bola en el programa
 public class Bola 
 {
+    private double tiempoEnMaxY;
     // Constructor de la clase Bola
     Bola(double x, double y, double ax, double ay, double r, double m, boolean outOfConstraint, boolean outOfGame, boolean intersectWithOtherBall) throws IOException 
     {
@@ -24,8 +25,25 @@ public class Bola
         this.fuera_de_restricciones = outOfConstraint;
         this.fuera_del_juego = outOfGame;
         this.interseccionConOtraBola = intersectWithOtherBall;
+        this.tiempoEnMaxY = 0;
     }
 
+    public void incrementarTiempoEnMaxY()
+    {
+        this.tiempoEnMaxY += 0.1;
+        System.out.print(tiempoEnMaxY);
+    }
+    
+    public void reiniciarTiempoEnMaxY()
+    {
+        this.tiempoEnMaxY += 0;
+    }
+    
+    public double getTiempoEnMaxY()
+    {
+        return this.tiempoEnMaxY;
+    }
+    
     // Método para actualizar la posición de la bola en función del tiempo
     void actualizarPosicion(double dt)
     {

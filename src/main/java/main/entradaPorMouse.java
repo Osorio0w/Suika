@@ -36,7 +36,7 @@ class entradaPorMouse extends MouseAdapter {
             // Limito el área en que se puede hacer clic para evitar bugs
             if(e.getX() > 600 && e.getX() < 1400)
             {
-                System.out.println("Mouse presionado en:" + e.getX() + ", " + "10");
+                System.out.println("Fruta liberada en:" + e.getX() + ", " + "10");
                 try 
                 {
                     animator.ballFactory.crearFruta(e.getX(), 10, pixelPerMeter);
@@ -47,11 +47,5 @@ class entradaPorMouse extends MouseAdapter {
                 animator.setClickCounter(animator.getClickCounter() + 1);
             }
         }
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) 
-    {
-        System.out.println("Mouse liberado en: " + e.getX() + ", " + e.getY());
     }
 }

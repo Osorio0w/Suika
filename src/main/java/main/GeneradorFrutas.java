@@ -1,9 +1,15 @@
 package main;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
+import main.declararAssets;
+import static main.Animacion.cursorX;
 
 // Clase encargada de generar frutas en el juego
 public class GeneradorFrutas
@@ -30,6 +36,10 @@ public class GeneradorFrutas
     {
         colaBolas.add("Kiwi");
         colaBolas.add("Cereza");
+    }
+    public Queue<String> getColaBolas()
+    {
+        return colaBolas;
     }
     
     // Métodos para crear diferentes tipos de frutas con las coordenadas del mouse
@@ -96,7 +106,7 @@ public class GeneradorFrutas
         double yModel = (alturaDelArea - (y / pixelsPerMeter) - 0.3);
         
         // Verifica si la colaBolas tiene menos de 2 elementos
-        while (colaBolas.size() < 2) 
+        while (colaBolas.size() < 10) 
         {
             Random rand = new Random();
             int numeroAleatorio = rand.nextInt(5) + 1; // Genera un número aleatorio entre 1 y 5
@@ -133,6 +143,8 @@ public class GeneradorFrutas
             
             } 
             System.out.println(tipoFruta + "<--- Bola siguiente");
-            System.out.println(colaBolas.toString() + "<--- Cola");
+            System.out.println(colaBolas.toString() + "<--- Cola"); 
     }
+    
+        
 }

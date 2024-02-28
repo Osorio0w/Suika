@@ -2,13 +2,17 @@ package main;
 
 import java.io.IOException;
 import java.util.*;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import java.awt.Window;
 
 public class Colisiones 
 {
     Animacion animator; // Referencia al objeto Animacion
     double anchoDelArea, alturaDelArea; // Dimensiones del área de juego
     Vector2D gravedad = new Vector2D(0,-10); // Gravedad aplicada a las bolas
-    private int contadorPuntaje;
+    private int contadorPuntaje; // Cuenta el puntaje del jugador
+    private long tiempoInicial;
     
     public int obtenerPuntaje()
     {
@@ -333,6 +337,11 @@ public class Colisiones
         * @param bola2 Segunda bola.
         * @throws IOException Excepción de E/S.
         **/
+    private JFrame ventanaActual;
+
+    public void setMainFrame(JFrame mainFrame) {
+    this.ventanaActual = mainFrame;
+    }
      // Lógica para fusionar dos bolas después de una colisión
     private void fusionar(Bola bola1, Bola bola2) throws IOException 
     {
@@ -491,6 +500,7 @@ public class Colisiones
         double maxX = 1320.0/200;
         double minX = 600.0/200;
         double minY = 30.0/200;
+        double maxY = 880.0/200;
         for (Bola b : Bolas)
         {
             double toMinYY = b.posicionActual.getY() - minY;

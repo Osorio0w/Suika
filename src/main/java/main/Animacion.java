@@ -14,11 +14,11 @@ import java.awt.geom.Path2D;
 import javax.swing.JFrame;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.Objects;
-import javax.swing.JLabel;
+import java.util.Queue;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import main.declararAssets;
+import main.GeneradorFrutas;
 
 // Clase principal que extiende JPanel e implementa ActionListener
 public class Animacion extends JPanel implements ActionListener 
@@ -35,7 +35,8 @@ public class Animacion extends JPanel implements ActionListener
     
     //Contador de Clicks
     private int clickCounter;
-    
+
+    GeneradorFrutas generadorFrutas;
     // Constructor de la clase
     public Animacion(int pixelWidth, int pixelHeight, int fps) 
     {
@@ -56,7 +57,6 @@ public class Animacion extends JPanel implements ActionListener
         
         // Inicialización del GeneradorFrutas
         ballFactory = new GeneradorFrutas(lista, siguiente);
-        
         
         //Cargar assets
         declararAssets.init();
@@ -176,43 +176,71 @@ public class Animacion extends JPanel implements ActionListener
                 int yPos = this.getHeight() - (int) (b.posicionActual.getY() * pixelsPerMeter) - declararAssets.patilla.getHeight()/2;
                 g.drawImage(declararAssets.patilla, xPos, yPos, this);
             }
-
-            // Rellenar y dibujar la elipse correspondiente
-
         }
 
+        // Dibujar la cajita donde caen las frutas
         // Dibujar la cajita donde caen las frutas
         g2.setColor(Color.black);
         BasicStroke grosorLinea = new BasicStroke(5);
         g2.setStroke(grosorLinea);
         Path2D jar = new Path2D.Double();
+
+        // Parte izquierda
+        jar.moveTo(600, 10);
+        jar.lineTo(600, 870);
+
+        // Parte derecha
+        jar.lineTo(1320, 870);
+        jar.lineTo(1320, 10);
         
-            //Parte izquierda
-            jar.moveTo(600,10);
-            jar.lineTo(600,870);
-            
-            //Parte derecha
-            jar.lineTo(1320,870);
-            jar.lineTo(1320,10);
-            
+        
+        jar.closePath();
 
         g2.draw(jar);
         Toolkit.getDefaultToolkit().sync();
+
         //Mostrar el contador de turnos y el puntaje del jugador
         g.setFont(Arial24);
         g.setColor(Color.BLACK);
         g.drawString("Turnos: " + clickCounter, 60, 40);
         g.drawString("Puntaje:" + lista.obtenerPuntaje(), 60, 120);
+        previewFruta(g2);
     }
     
-    // Método para dibujar la vista previa de la próxima bola
-    
-        /*if ( Objects.equals( balFactory.siguiente.getValue(), "Datil" ) )
-        {
-            
-        return null;
-            
-        } */
+    // Métodos para dibujar la vista previa de la próxima bola
+    public void previewFruta(Graphics2D g2)
+        {   Queue<String> colaBolas = ballFactory.getColaBolas();
+            if (!colaBolas.isEmpty())
+            {
+                String proximaFruta  = colaBolas.peek();
+                switch (proximaFruta)
+                {
+                    case "Datil":
+                        g2.drawImage(declararAssets.datil, cursorX - declararAssets.datil.getWidth()/2, 9, null);
+                        break;
+
+                    case "Mamon":
+                        g2.drawImage(declararAssets.mamon, cursorX - declararAssets.mamon.getWidth()/2, 9, null);
+                        break;
+
+                    case "Mamey":
+                        g2.drawImage(declararAssets.mamey, cursorX - declararAssets.mamey.getWidth()/2, 9, null);
+                        break;
+
+                    case "Cereza":
+                        g2.drawImage(declararAssets.cereza, cursorX - declararAssets.cereza.getWidth()/2, 9, null);
+                        break;
+
+                    case "Pumalaca":
+                        g2.drawImage(declararAssets.pumalaca, cursorX - declararAssets.pumalaca.getWidth()/2, 9, null);
+                        break;
+                        
+                    case "Kiwi":
+                        g2.drawImage(declararAssets.kiwi, cursorX - declararAssets.kiwi.getWidth()/2, 9, null);
+                        break;
+                }
+            }
+        }
     
     // Método que se llama en cada paso de la animación
     @Override
@@ -225,6 +253,7 @@ public class Animacion extends JPanel implements ActionListener
         }
         this.repaint();
     }
+    
     // Método para crear la ventana
     public static void main(String[] args) 
     {
@@ -235,6 +264,7 @@ public class Animacion extends JPanel implements ActionListener
             {
                 // Creación de la animación
                 Animacion anim = new Animacion(1440, 900, 120);
+                
                 // Configuración de los listeners del mouse
                 anim.addMouseListener(new entradaPorMouse(anim, pixelsPerMeter));
                 anim.addMouseMotionListener(new MouseMotionAdapter() 
