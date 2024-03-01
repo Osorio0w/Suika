@@ -495,9 +495,9 @@ public class Colisiones
         bola2.posicionAntigua.set(99999.9,99999.9);
     }
     // Aplicar restricciones de movimiento a las bolas dentro del área de juego
-    private void aplicarRestriccion() 
+        private void aplicarRestriccion() 
     {
-        double maxX = 1320.0/200;
+        double maxX = 1280.0/200;
         double minX = 600.0/200;
         double minY = 30.0/200;
         double maxY = 880.0/200;

@@ -10,8 +10,8 @@ main\Inicio$2.class
 com\mycompany\suika2\SUIKA2.class
 main\Animacion.class
 main\entradaPorMouse.class
+main\Fruta.class
 main\Inicio$1.class
-main\Bola.class
 main\GameOver$2.class
 com\mycompany\suika2\SUIKA2$1.class
 main\Inicio$4.class
@@ -22,7 +22,6 @@ main\GameOver$4.class
 main\Parchita.class
 main\Coco.class
 main\Mamon.class
-main\Cola.class
 main\Inicio$3.class
 main\GameOver$1.class
 main\Mango.class

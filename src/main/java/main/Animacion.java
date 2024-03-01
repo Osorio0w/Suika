@@ -76,11 +76,11 @@ public class Animacion extends JPanel implements ActionListener
     {
         return clickCounter;
     }
+    
     public void setClickCounter(int clickCounter)
     {
         this.clickCounter = clickCounter;
     }
-    
     
     // Método para dibujar las bolas en el panel
     @Override
@@ -104,8 +104,7 @@ public class Animacion extends JPanel implements ActionListener
                     b.radio * 2 * pixelsPerMeter,
                     b.radio * 2 * pixelsPerMeter);
                 
-            // Asignación de colores según el tipo de bola
-
+            // Asignación de assets según el tipo de bola
             if (b instanceof Datil) 
             {
                 int xPos = (int) (b.posicionActual.getX() * pixelsPerMeter) - declararAssets.datil.getWidth()/2;
@@ -177,11 +176,11 @@ public class Animacion extends JPanel implements ActionListener
 
         // Parte izquierda
         jar.moveTo(600, 10);
-        jar.lineTo(600, 870);
+        jar.lineTo(600, 1030);
 
         // Parte derecha
-        jar.lineTo(1320, 870);
-        jar.lineTo(1320, 10);
+        jar.lineTo(1280, 1030);
+        jar.lineTo(1280, 10);
         
         
         jar.closePath();
@@ -249,7 +248,7 @@ public class Animacion extends JPanel implements ActionListener
                     case "Cereza" -> g2.drawImage(declararAssets.cereza,  200, 200, null);
 
                     case "Pumalaca" -> g2.drawImage(declararAssets.pumalaca,  200, 200, null);
-
+                              
                     case "Kiwi" -> g2.drawImage(declararAssets.kiwi,  200, 200, null);
                 }
             }
@@ -276,7 +275,7 @@ public class Animacion extends JPanel implements ActionListener
             public void run() 
             {
                 // Creación de la animación
-                Animacion anim = new Animacion(1440, 900, 120);
+                Animacion anim = new Animacion(1300, 1200, 120);
                 
                 // Configuración de los listeners del mouse
                 anim.addMouseListener(new entradaPorMouse(anim, pixelsPerMeter));
