@@ -1,4 +1,3 @@
-// Importación de paquetes y clases necesarias
 package main;
 
 import java.awt.BasicStroke;
@@ -17,8 +16,6 @@ import java.io.IOException;
 import java.util.Queue;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-import main.declararAssets;
-import main.GeneradorFrutas;
 
 // Clase principal que extiende JPanel e implementa ActionListener
 public class Animacion extends JPanel implements ActionListener 
@@ -26,9 +23,6 @@ public class Animacion extends JPanel implements ActionListener
     // Variables de coordenadas del cursor
     public static int cursorX;
     private static int cursorY;
-
-    // Clase para controlar el siguiente elemento
-    private Siguiente siguiente = null;
     
     //Fuente para el contador de click y puntaje
     Font Arial24 = new Font("Arial",Font.BOLD, 24);
@@ -52,11 +46,8 @@ public class Animacion extends JPanel implements ActionListener
         this.setOpaque(false);
         this.setPreferredSize(new Dimension(pixelWidth, pixelHeight));
         
-        // Inicialización de la clase Siguiente
-        siguiente = new Siguiente();
-        
         // Inicialización del GeneradorFrutas
-        ballFactory = new GeneradorFrutas(lista, siguiente);
+        ballFactory = new GeneradorFrutas(lista);
         
         //Cargar assets
         declararAssets.init();
@@ -101,7 +92,7 @@ public class Animacion extends JPanel implements ActionListener
         g2.drawImage(declararAssets.fondo,0,0,this);
 
         // Dibujar cada bola en la lista
-        for (Bola b : lista.Bolas) 
+        for (Fruta b : lista.Bolas) 
         {
             double x = b.posicionActual.getX() - b.radio;
             double y = b.posicionActual.getY() + b.radio;
@@ -179,7 +170,6 @@ public class Animacion extends JPanel implements ActionListener
         }
 
         // Dibujar la cajita donde caen las frutas
-        // Dibujar la cajita donde caen las frutas
         g2.setColor(Color.black);
         BasicStroke grosorLinea = new BasicStroke(5);
         g2.setStroke(grosorLinea);
@@ -205,6 +195,7 @@ public class Animacion extends JPanel implements ActionListener
         g.drawString("Turnos: " + clickCounter, 60, 40);
         g.drawString("Puntaje:" + lista.obtenerPuntaje(), 60, 120);
         previewFruta(g2);
+        turnoSiguiente(g2);
     }
     
     // Métodos para dibujar la vista previa de la próxima bola
@@ -238,6 +229,28 @@ public class Animacion extends JPanel implements ActionListener
                     case "Kiwi":
                         g2.drawImage(declararAssets.kiwi, cursorX - declararAssets.kiwi.getWidth()/2, 9, null);
                         break;
+                }
+            }
+        }
+            public void turnoSiguiente(Graphics2D g2)
+        {   Queue<String> colaBolas = ballFactory.getColaBolas();
+            if (!colaBolas.isEmpty())
+            {
+                String[] proximaFruta  = colaBolas.toArray(new String[colaBolas.size()]);
+                String fruta = proximaFruta[1];
+                switch (fruta)
+                {
+                    case "Datil" -> g2.drawImage(declararAssets.datil,  200, 200, null);
+
+                    case "Mamon" -> g2.drawImage(declararAssets.mamon,  200, 200, null);
+
+                    case "Mamey" -> g2.drawImage(declararAssets.mamey,  200, 200, null);
+
+                    case "Cereza" -> g2.drawImage(declararAssets.cereza,  200, 200, null);
+
+                    case "Pumalaca" -> g2.drawImage(declararAssets.pumalaca,  200, 200, null);
+
+                    case "Kiwi" -> g2.drawImage(declararAssets.kiwi,  200, 200, null);
                 }
             }
         }

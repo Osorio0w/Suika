@@ -4,14 +4,21 @@
 
 package com.mycompany.suika2;
 
+import javax.swing.SwingUtilities;
+import main.Inicio;
+
 /**
  *
  * @author Andrès Osorio
  */
 public class SUIKA2 {
 
-    public static void main(String[] args) {
-
-         
+     public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new Inicio();
+            }
+        });
     }
 }

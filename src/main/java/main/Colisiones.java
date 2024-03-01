@@ -20,7 +20,7 @@ public class Colisiones
     }
     
     
-    ArrayList<Bola> Bolas = new ArrayList<Bola>(); // Lista de bolas en el área de juego
+    ArrayList<Fruta> Bolas = new ArrayList<Fruta>(); // Lista de bolas en el área de juego
         /**
         * Constructor de la clase Lista.
         * @param ancho Ancho del área de juego.
@@ -343,7 +343,7 @@ public class Colisiones
     this.ventanaActual = mainFrame;
     }
      // Lógica para fusionar dos bolas después de una colisión
-    private void fusionar(Bola bola1, Bola bola2) throws IOException 
+    private void fusionar(Fruta bola1, Fruta bola2) throws IOException 
     {
 
         Vector2D posicionColision = new Vector2D(bola1.posicionActual.getX() - bola2.posicionActual.getX(), bola1.posicionActual.getY() - bola2.posicionActual.getY());
@@ -501,7 +501,7 @@ public class Colisiones
         double minX = 600.0/200;
         double minY = 30.0/200;
         double maxY = 880.0/200;
-        for (Bola b : Bolas)
+        for (Fruta b : Bolas)
         {
             double toMinYY = b.posicionActual.getY() - minY;
             double toMinYX = 0;
@@ -553,7 +553,7 @@ public class Colisiones
          **/
     private void actualizarPosicion(double deltaT) 
     {
-        for (Bola b : Bolas)
+        for (Fruta b : Bolas)
         {
             b.actualizarPosicion(deltaT);
         }
@@ -563,7 +563,7 @@ public class Colisiones
      */
     private void aplicarGravedad() 
     {
-        for (Bola b : Bolas)
+        for (Fruta b : Bolas)
         {
             //if(!b.outOfConstraint)
             

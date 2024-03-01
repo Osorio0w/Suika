@@ -9,11 +9,11 @@ main\GameOver.class
 main\Inicio$2.class
 com\mycompany\suika2\SUIKA2.class
 main\Animacion.class
-main\Alinear.class
 main\entradaPorMouse.class
 main\Inicio$1.class
 main\Bola.class
 main\GameOver$2.class
+com\mycompany\suika2\SUIKA2$1.class
 main\Inicio$4.class
 main\Animacion$1.class
 main\GeneradorFrutas.class
@@ -21,7 +21,6 @@ main\Vector2D.class
 main\GameOver$4.class
 main\Parchita.class
 main\Coco.class
-main\Siguiente.class
 main\Mamon.class
 main\Cola.class
 main\Inicio$3.class

@@ -1,15 +1,9 @@
 package main;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
-import main.declararAssets;
-import static main.Animacion.cursorX;
 
 // Clase encargada de generar frutas en el juego
 public class GeneradorFrutas
@@ -18,17 +12,13 @@ public class GeneradorFrutas
     double  alturaDelArea;  // Altura del juego
     double areaWidth;       // Ancho del juego
     int contador = 0;       // Contador que suma 1 por cada click, se utiliza para generar las bolas
-    Siguiente siguiente;    // Siguiente tipo de fruta a generar (esto es un string) (no lo he hecho funcionar todavía)
     private Queue<String> colaBolas = new LinkedList<>();
-    Cola cola;
     // Constructor de la clase GeneradorFrutas
-    GeneradorFrutas(Colisiones model, Siguiente bolaSiguiente)
+    GeneradorFrutas(Colisiones model)
     {
         this.model = model; 
         this.alturaDelArea = model.alturaDelArea;
-        this.areaWidth = model.anchoDelArea; 
-        this.siguiente = bolaSiguiente;
-        cola = new Cola();
+        this.areaWidth = model.anchoDelArea;
         inicializarCola(); //Inicializa la cola con los tipos de fruta
     }
     
